@@ -1,2 +1,31 @@
 <!--pages/components/login-tel/login-tel.wxml-->
-<text>pages/components/login-tel/login-tel.wxml</text>
+<!--pages/components/login-other/login-other.wxml-->
+<view class='login-other-box'>
+  <view class='login-title'>登录</view>
+  <view class='login-info'>
+      <view class='login-row login-border'>
+        <input
+          value='{{userTel}}'
+          data-type='1'
+          bindinput='changeLoginInfo'
+          placeholder-class='input-color'
+          placeholder='请输入您的手机号'></input>
+      </view>
+      <view class='login-row login-border'>
+        <input
+          type='password'
+          value='{{userCode}}'
+          data-type='2'
+          bindinput='changeLoginInfo'
+          placeholder-class='input-color' 
+          placeholder='请输入收到的验证码'
+          class="login-code" ></input>
+          <label bindtap="getCode">获取验证码</label>
+      </view>
+  </view>
+  <view class='login' bindtap='login'>登录</view>
+  <view class='login-xy'>
+    登录XX代表你已同意<label bindtap="details">《XX用户协议》</label>  
+  </view>
+  <view wx:if="{{false}}" class='login-type' bindtap="togglelogin">手机号登录</view>
+</view>

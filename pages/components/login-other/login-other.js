@@ -73,5 +73,8 @@ Page({
         })
       }
     })
-  }
+  },
+  togglelogin: function () {
+    Toast('正在开发中...', 'none', 1500);
+  },
 })

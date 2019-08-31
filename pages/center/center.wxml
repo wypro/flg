@@ -47,7 +47,7 @@
     </view> 
   </view>
 
-  <view class='change-recruit'>切换至我要招人</view>
+  <view class='change-recruit' bindtap="toggleRole">切换至我要招人</view>
   <view class='login-out' wx:if="{{isUser?true:false}}" bindtouchstart='loginOut'>退出登录</view>
 </view>
 <view class='login-module' wx:if="{{isBtnLogin?false:true}}">

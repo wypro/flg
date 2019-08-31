@@ -8,7 +8,7 @@
           data-type='1'
           bindinput='changeLoginInfo'
           placeholder-class='input-color'
-          placeholder='请输入已验证的手机号或邮箱'></input>
+          placeholder='请输入已验证的手机号'></input>
       </view>
       <view class='login-row login-border'>
         <input
@@ -22,5 +22,5 @@
   </view>
   <view class='login' bindtap='login'>登录</view>
 
-  <view class='login-type'>手机号登录</view>
+  <view class='login-type' bindtap="togglelogin">手机号登录</view>
 </view>

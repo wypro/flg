@@ -7,9 +7,9 @@
             <view class='position-name'>{{item.positionName}}</view>
             <view class='company-name'>{{item.companyName}}</view>
             <view class='docs'>
-                <text>{{item.city}}</text>
+                <text>{{item.city}} </text>
                 <!-- item.workExperience?item.workExperience: -->
-                <text>{{"1-3年"}}</text>
+                <text>| {{"1-3年"}} |</text>
                 <!-- item.education -->
                 <text>{{"本科"}}</text>
             </view>
