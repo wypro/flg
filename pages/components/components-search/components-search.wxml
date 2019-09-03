@@ -7,7 +7,7 @@
     <text class='not-title-line'></text>
   </view>
   <view class='not-login-search'>
-    <view class='not-login-city'>成都</view>
+    <view class='not-login-city'>长沙</view>
     <input placeholder="输入职位关键词，如：产品" value='{{searchValue}}' bindinput='getSearchValue'/>
   </view>
   <view class='not-login-searchlist' >

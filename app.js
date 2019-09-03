@@ -1,6 +1,7 @@
 //app.js
 App({
   onLaunch: function () {
+    // console.log();
    let that = this;
    wx.getStorage({
      key: 'userinfo',
@@ -37,8 +38,10 @@ App({
     })
   },
   globalData: {
+    cd: 0,
     userInfo: {},
     isShow: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo')
   }, 
+  
 })

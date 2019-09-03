@@ -20,7 +20,7 @@
           placeholder-class='input-color' 
           placeholder='请输入收到的验证码'
           class="login-code" ></input>
-          <label bindtap="getCode">获取验证码</label>
+          <label bindtap="getCode">{{cdTest}}</label>
       </view>
   </view>
   <view class='login' bindtap='login'>登录</view>

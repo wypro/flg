@@ -57,7 +57,7 @@ Page({
         Toast("没有此用户，请注册",'none',2000);
         return;
       }
-      // console.log(res.data[0]);
+      console.log(res.data[0].userImg);
       if(res.code == 0){
         wx.setStorage({
           key: 'userinfo',

@@ -3,6 +3,8 @@ const faceUrl = require('../../public/common/faceUrl.js');
 const { Toast } = require('../../public/common/Toast.js');
 const { Request } = require('../../../utils/request.js');
 
+const app=getApp();
+
 Page({
 
   /**
@@ -10,14 +12,25 @@ Page({
    */
   data: {
     userTel: null,
-    userCode: null
+    userCode: null,
+    sendCode: null,
+    cd: 0,
+    isSend: false,
+    cdTest: '获取验证码',
+    dsq: null,
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    if (app.globalData.cd!=0){
+      this.setData({
+        dsq: setInterval(this.setCD,1000),
+        cd: app.globalData.cd,
+        isSend: true,
+      });
+    }
   },
   //改变登录信息状态
   changeLoginInfo: function (e) {
@@ -36,45 +49,37 @@ Page({
   login: function (e) {
     let that = this;
     if (!this.data.userTel) {
-      Toast('提示：账号信息不能为空', 'none', 2000);
+      Toast('提示：手机号码不能为空', 'none', 2000);
       return;
     }
     if (!this.data.userCode) {
-      Toast('提示：密码内容不能为空', 'none', 2000);
+      Toast('提示：验证码不能为空', 'none', 2000);
       return;
     }
-
-    let obj = {
-      path: faceUrl.path + faceUrl.login,
-      data: {
-        userName: that.data.userTel,
-        userPassWord: that.data.userCode
-      }
+    if (!this.data.sendCode) {
+      Toast('验证码无效！', 'none', 2000);
+      return;
     }
-
-    Request(obj, (res) => {
-      if (res.code == 1) {
-        Toast("大批攻城师正在骑马赶来的路上", 'none', 2000);
-        return;
-      }
-      if (res.code == 2) {
-        Toast("没有此用户，请注册", 'none', 2000);
-        return;
-      }
-      // console.log(res.data[0]);
-      if (res.code == 0) {
-        wx.setStorage({
-          key: 'userinfo',
-          data: JSON.stringify(res.data[0]),
-          success: function (res) {
-            wx.switchTab({
-              url: '/pages/index/index'
-            })
-            getApp().globalData.isShow = true;
-            Toast('登录成功', 'success', 1500);
-            // app.global.isShow = true;
-          }
+    if(this.data.userCode!=this.data.sendCode){
+      Toast('验证码不一致','none',1500);  
+      return;
+    }
+    let data = {
+      userID: "1001",
+      userName: '程序测试员',
+      userImg: 'https://c-ssl.duitang.com/uploads/item/201809/26/20180926162125_vjbwi.jpg',
+      description: "测试专用...",
+    };
+    wx.setStorage({
+      key: 'userinfo',
+      data: JSON.stringify(data),
+      success: function (res) {
+        wx.switchTab({
+          url: '/pages/index/index'
         })
+        getApp().globalData.isShow = true;
+        Toast('登录成功', 'success', 1500);
+        // app.global.isShow = true;
       }
     })
   },
@@ -85,7 +90,63 @@ Page({
     Toast('正在开发中...', 'none', 1500);
   },
   getCode: function () {
-    Toast('正在开发中...', 'none', 1500);
+    let that=this;
+    if (this.data.cd != 0) {
+      Toast('提示：冷却时间未到无法重新发送', 'none', 2000);
+      return;
+    }
+    if (!this.data.userTel) {
+      Toast('提示：电话号码不能为空', 'none', 2000);
+      return;
+    }
+    
+    this.setData({
+      sendCode: parseInt(Math.random() * 899999 + 100000),
+    });
+    let obj = {
+      path: 'http://127.0.0.1:8080/code/get',
+      data: {          
+        param: this.data.sendCode,
+        mobile: this.data.userTel,
+        wxappid: wx.getAccountInfoSync().miniProgram.appId,
+      }
+    }
+    
+    // 获取验证码
+    Request(obj, (res) => {
+        if(res.code == 1) {
+          Toast(res.msg, 'none', 2000);
+      }
+      if (res.code == 0) {
+        Toast('发送成功请注意查收', 'success', 1500);
+        this.setData({
+          cd: 60,
+          isSend: true,
+        });
+        this.setData({
+          dsq: setInterval(this.setCD, 1000),
+        });
+        return;
+      }else{
+        Toast(res.msg, 'none', 2000);
+      }
+    });
+  },
+  setCD: function () {
+    if (this.data.cd == 0 && this.data.isSend) {
+      clearInterval(this.data.dsq);
+      this.setData({
+        isSend: false,
+        cdTest: '重新发送',
+        sendCode: null,
+      });
+      return;
+    }
+    this.setData({
+      cdTest: this.data.cd - 1,
+      cd: this.data.cd - 1,
+    });
+    app.globalData.cd = this.data.cd - 1;
   },
   /**
    * 生命周期函数--监听页面初次渲染完成

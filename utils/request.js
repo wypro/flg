@@ -10,6 +10,7 @@ export function Request(obj,callback){
     data: obj.data,
     success: function(res) {
       // wx.hideLoading();  //结束loading加载
+      console.log(res.data);
       callback(res.data);
     },
     fail: function(res) {
