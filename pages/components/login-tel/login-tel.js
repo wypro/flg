@@ -100,13 +100,13 @@ Page({
       return;
     }
     
-    this.setData({
-      sendCode: parseInt(Math.random() * 899999 + 100000),
-    });
+    
+    let Code = parseInt(Math.random() * 899999 + 100000);
+    
     let obj = {
       path: 'http://127.0.0.1:8080/code/get',
       data: {          
-        param: this.data.sendCode,
+        param: Code,
         mobile: this.data.userTel,
         wxappid: wx.getAccountInfoSync().miniProgram.appId,
       }
@@ -114,14 +114,15 @@ Page({
     
     // 获取验证码
     Request(obj, (res) => {
-        if(res.code == 1) {
+        if(res.code == 1) {//出现意外情况
           Toast(res.msg, 'none', 2000);
       }
-      if (res.code == 0) {
+      if (res.code == 0) {//发送成功
         Toast('发送成功请注意查收', 'success', 1500);
         this.setData({
           cd: 60,
           isSend: true,
+          sendCode: obj.data.param
         });
         this.setData({
           dsq: setInterval(this.setCD, 1000),
