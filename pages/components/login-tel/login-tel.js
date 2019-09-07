@@ -13,7 +13,6 @@ Page({
   data: {
     userTel: null,
     userCode: null,
-    sendCode: null,
     cd: 0,
     isSend: false,
     cdTest: '获取验证码',
@@ -24,7 +23,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    if (app.globalData.cd!=0){
+    if (app.globalData.cd>0){
       this.setData({
         dsq: setInterval(this.setCD,1000),
         cd: app.globalData.cd,
@@ -49,18 +48,18 @@ Page({
   login: function (e) {
     let that = this;
     if (!this.data.userTel) {
-      Toast('提示：手机号码不能为空', 'none', 2000);
+      Toast('手机号码不能为空', 'none', 2000);
       return;
     }
     if (!this.data.userCode) {
-      Toast('提示：验证码不能为空', 'none', 2000);
+      Toast('验证码不能为空', 'none', 2000);
       return;
     }
-    if (!this.data.sendCode) {
+    if (!app.globalData.sendCode || app.globalData.sendTel != this.data.userTel) {
       Toast('验证码无效！', 'none', 2000);
       return;
     }
-    if(this.data.userCode!=this.data.sendCode){
+    if (this.data.userCode != app.globalData.sendCode){
       Toast('验证码不一致','none',1500);  
       return;
     }
@@ -78,6 +77,9 @@ Page({
           url: '/pages/index/index'
         })
         getApp().globalData.isShow = true;
+        app.globalData.sendTel = null;
+        app.globalData.sendCode = null;
+        app.globalData.cd = 0;
         Toast('登录成功', 'success', 1500);
         // app.global.isShow = true;
       }
@@ -114,21 +116,22 @@ Page({
     
     // 获取验证码
     Request(obj, (res) => {
-        if(res.code == 1) {//出现意外情况
+        if(res.code == 1) {
           Toast(res.msg, 'none', 2000);
       }
       if (res.code == 0) {//发送成功
-        Toast('发送成功请注意查收', 'success', 1500);
+        Toast(res.msg, 'success', 1500);
         this.setData({
           cd: 60,
           isSend: true,
-          sendCode: obj.data.param
         });
+        app.globalData.sendCode = obj.data.param;
+        app.globalData.sendTel = obj.data.mobile;
         this.setData({
           dsq: setInterval(this.setCD, 1000),
         });
         return;
-      }else{
+      } else {//出现意外情况
         Toast(res.msg, 'none', 2000);
       }
     });
@@ -139,8 +142,9 @@ Page({
       this.setData({
         isSend: false,
         cdTest: '重新发送',
-        sendCode: null,
       });
+      app.globalData.sendCode = null;
+      app.globalData.sendTel = null;
       return;
     }
     this.setData({

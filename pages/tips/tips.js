@@ -2,6 +2,7 @@
 const faceUrl = require('../public/common/faceUrl');
 const { Toast, Loading } = require("../public/common/Toast");
 const { Request } = require("../../utils/request.js");
+const app = getApp();
 
 Page({
 
@@ -9,19 +10,24 @@ Page({
    * 页面的初始数据
    */
   data: {
-    tipsList:null,
-    endTips:false
+    tipsList: null,
+    endTips: false,
+    maxSize: 0
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    wx.showLoading({
+      title: '加载中...',
+    })
     let that = this;
     let obj = {
-      path:faceUrl.path+faceUrl.tips,
+      // path:faceUrl.path+faceUrl.tips,
+      path: "http://127.0.0.1:8080/data/getTipsAll",
       data:{
-        pageNo:10
+        pageNo: 10
       }
     }
 
@@ -30,7 +36,7 @@ Page({
         res.data.sort((a, b)=>{
           return b.exposure - a.exposure
         })
-        console.log(res.data)
+        wx.hideLoading();
         that.setData({
           tipsList:res.data
         })
@@ -49,7 +55,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    app.globalData.isRefresh = false;//防止首页多次刷新
   },
 
   /**
@@ -82,7 +88,7 @@ Page({
       endTips:true
     })
     let obj = {
-      path: faceUrl.path + faceUrl.tips,
+      path: "http://127.0.0.1:8080/data/getTipsAll",
       data: {
         pageNo: that.data.tipsList.length+10
       }
@@ -90,13 +96,14 @@ Page({
 
     setTimeout(()=>{
       Request(obj, (res) => {
-        if (res.code == 0) {
+        if (res.code == 0) {//请求成功
           res.data.sort((a, b) => {
             return b.exposure - a.exposure
           })
           that.setData({
             tipsList: res.data,
-            endTips: false
+            endTips: false,
+            maxSize: res.data.length
           })
         }
       })

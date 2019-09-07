@@ -1,0 +1,13 @@
+<template name="login-select">
+  <view class='login-module'>
+    <view class='login-module-box'>
+      <view class='login-module-close' bindtouchstart='loginModule' data-isshow="{{isBtnLogin?false:true}}">
+        <image src='../public/images/icon/cha.png'></image>
+      </view>
+      <view class='login-module-title'>登录或注册拉勾</view>
+      <button class='login-module-wx login-mode' data-page="wx" open-type="getUserInfo" bindgetuserinfo="getUserInfo">微信账号快速登录</button>
+      <view class='login-module-tel login-mode' data-page="tel" bindtouchstart='loginPage'>手机号注册/登录</view>
+      <view class='login-module-other' data-page="other" bindtouchstart='loginPage'>其他方式登录</view>
+    </view>
+  </view>
+</template>

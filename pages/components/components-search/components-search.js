@@ -25,8 +25,11 @@ Component({
         return;
       }
       let obj = {
-        path: faceUrl.path + faceUrl.positionSearch,
-        data: { pageNo: 1,params:this.data.searchValue }
+        path: "http://127.0.0.1:8080/data/getJobsAll",
+        data: { 
+          pageNo: 15,
+          params: this.data.searchValue 
+        }
       }
 
       // 职位列表
@@ -37,7 +40,7 @@ Component({
         }
         if (res.code == 0) {
           Toast('成功', 'success', 1500);
-          this.triggerEvent('myevent', { val: true, value: res.data });//执行父组件的事件
+          this.triggerEvent('myevent', { val: true, value: res.data, searchValue: this.data.searchValue  });//执行父组件的事件
         }
       });
     },

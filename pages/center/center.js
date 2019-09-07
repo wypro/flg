@@ -60,6 +60,7 @@ Page({
           url: '/pages/index/index'
         })
         getApp().globalData.isShow = true;
+        getApp().globalData.isRefresh = true;
         Toast('登录成功', 'success', 1500);
       }
     })
@@ -78,7 +79,7 @@ Page({
     };
     let show = e.target.dataset.isshow || e.currentTarget.dataset.isshow;
     this.setData({
-      isBtnLogin:show
+      isBtnLogin: show
     })
   },
   // 跳转到各个登录页面
@@ -109,6 +110,7 @@ Page({
           isUser:false
         });
         getApp().globalData.isShow = false;
+        getApp().globalData.isRefresh = true;
         wx.switchTab({
           url: '/pages/index/index'
         })
@@ -135,12 +137,13 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
+  onShow: function () { 
+    app.globalData.isRefresh = false;//防止首页多次刷新
     let that = this;
     wx.getStorage({
       key: 'userinfo',
       success: function (res) {
-        // console.log(res,'ross')
+        // console.log(res.data,'ross')
         let info = (res.data == '') ? null : JSON.parse(res.data)
         that.setData({
           isUser: (res.data == '') ? false : true,

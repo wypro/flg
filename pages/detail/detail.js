@@ -1,8 +1,9 @@
 // pages/detail/detail.js
 
-const faceUrl = require("../public/common/faceUrl.js")
-const { Toast, Loading } = require("../public/common/Toast.js")
+const faceUrl = require("../public/common/faceUrl.js");
+const { Toast, Loading } = require("../public/common/Toast.js");
 const { Request } = require("../../utils/request.js");
+const app = getApp();
 
 Page({
 
@@ -19,6 +20,10 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    app.globalData.isRefresh = false;
+    wx.showLoading({
+      title: '加载中...',
+    })
     let that = this;
     //职位详情请求
     let detailObj = {
@@ -44,6 +49,7 @@ Page({
       }
       if (res.code == 0) { //请求成功，并返回参数
         // console.log(res.data[0])
+        wx.hideLoading();
         that.setData({
           detail: res.data[0],
           similar:res.data[0].positionName
