@@ -115,5 +115,8 @@ Page({
    */
   onShareAppMessage: function () {
 
+  },
+  Loading: function () {
+    Toast("不可查看", "none", 2000);
   }
 })

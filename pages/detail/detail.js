@@ -13,7 +13,9 @@ Page({
   data: {
     detail:null,
     similar:null,
-    similarInfo:null
+    similarInfo:null,
+    positionID: null,
+    jobsID: null,
   },
 
   /**
@@ -27,12 +29,16 @@ Page({
     let that = this;
     //职位详情请求
     let detailObj = {
-      path:faceUrl.path+faceUrl.positionDetail,
+      path: "http://127.0.0.1:8080/data/getJobsDetail",
       data:{
-        positionID:options.positionID,
-        jobsID:options.jobsID
-        }
+        positionID: options.positionID,
+        jobsID: options.jobsID
+      }
     }
+    this.setData({
+      positionID: options.positionID,
+      jobsID: options.jobsID
+    });
 
     Request(detailObj,(res)=>{
       if (res.code == 1) {  //后台代码错误
@@ -57,8 +63,11 @@ Page({
 
         //发起请求--相似职位
         let obj = {
-          path: faceUrl.path + faceUrl.similarPositions,
-          data: { positionName: that.data.similar }
+          path: "http://127.0.0.1:8080/data/getJobsAll",
+          data: { 
+            pageNo: 5,
+            params: that.data.similar,
+          }
         };
         // console.log(obj, 'ojb')
         
@@ -77,6 +86,12 @@ Page({
             return;
           }
           if (res.code == 0) { //请求成功，并返回参数
+            let redata = res.data;
+            for (var i=0;i<res.data.length;i++){
+              if (redata[i].jobsID == this.data.jobsID && redata[i].positionID == this.data.positionID){
+                redata.splice(i,1);
+              }
+            }
             that.setData({
               similarInfo: res.data
             })

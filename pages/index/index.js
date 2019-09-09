@@ -57,20 +57,15 @@ Page({
     })
   },
   onShow:function(){
-    if (this.data.userInfo != null){//第一次判断用户信息存在则刷新页面
-      app.globalData.isShow = true;
-      this.setData({
-        isShow: true,
-      });
-      this.setData({
-        searchValue: null,
-      });
-    }
-    // console.log(app.globalData.isRefresh);
-    if (!app.globalData.isRefresh) {//控制是否刷新数据
+    console.log(app.globalData.isRefresh + "/" + this.data.isShow + "/" + app.globalData.isShow);
+    if (!app.globalData.isRefresh) {//页面切换，控制是否刷新数据
       app.globalData.isRefresh = true;
       return;
     }
+    this.setData({//页面切换，未下拉操作，重置搜索项，数据
+      searchValue: null,
+      positionList: null,
+    });
     if (this.data.isShow){//loding
       wx.showLoading({
         title: '加载中',
@@ -111,19 +106,19 @@ Page({
       path: "http://127.0.0.1:8080/data/getJobsAll",
       data: { 
         pageNo: that.data.positionList ? that.data.positionList.length+15:15 ,
-        params: this.data.searchValue
+        params: this.data.searchValue ? this.data.searchValue : app.globalData.params ,
       }
     }
     // 职位列表
     Request(obj, (res) => {
       if (res.code == 1) {
-        Toast(res.msg, 'success', 2000);
+        Toast(res.msg, 'none', 2000);
         return;
       }
       if (res.code == 0) {
         // Toast('成功', 'success', 1500);
         if (this.data.positionList!=null && res.data.length == this.data.positionList.length) {
-          Toast('没有更多数据咯~~~2', 'none', 1500);
+          Toast('没有更多数据咯~~~', 'none', 1500);
           that.setData({
             allowRequest: false,
           });

@@ -23,7 +23,7 @@
           <label bindtap="getCode">{{cdTest}}</label>
       </view>
   </view>
-  <view class='login' bindtap='login'>登录</view>
+  <view class='login' bindtap='login'>注册</view>
   <view class='login-xy'>
     登录XX代表你已同意<label bindtap="details">《XX用户协议》</label>  
   </view>

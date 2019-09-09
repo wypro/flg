@@ -42,6 +42,13 @@ Page({
   
   getUserInfo: function(e){
     console.log(e)
+    if (e.detail.userInfo==null){
+      Toast('取消授权','none',1500);
+      this.setData({
+        isBtnLogin: true
+      })
+        return;
+    }
     app.globalData.userInfo = e.detail.userInfo
     this.setData({
       userInfo: {

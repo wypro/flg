@@ -16,7 +16,7 @@ Component({
   methods:{
     getSearchValue: function (event) { //绑定搜索框的内容
       this.setData({
-        searchValue:event.detail.value
+        searchValue: event.detail.value
       })
     },
     search:function(){
@@ -35,7 +35,7 @@ Component({
       // 职位列表
       Request(obj, (res) => {
         if (res.code == 1) {
-          Toast(res.msg, 'success', 2000);
+          Toast(res.msg, 'none', 2000);
           return;
         }
         if (res.code == 0) {

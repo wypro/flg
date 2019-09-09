@@ -136,7 +136,7 @@
            </view>
         </view>
       </view>
-   
+    
     <component-position
         wx:for="{{searchList}}" 
         wx-item="{{item}}"
@@ -145,6 +145,11 @@
         data-condition="{{item.positionID}}"
         data-jobsID="{{item.jobsID}}"
         bindtap='positionDetail'/>
-  </view>
-
+      <view class='end-tips'>
+        <view wx:if="{{endTips?true:false}}" class='tips-loading'>加载中......</view>
+        <view wx:if="{{!allowRequest}}" class='tips-loading'>没有更多数据了~~</view>
+      </view>
+    </view>
+    
 </view>
+

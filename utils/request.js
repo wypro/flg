@@ -1,5 +1,6 @@
 
 const { Toast, Loading } = require("../pages/public/common/Toast");
+const app = getApp();
 
 export function Request(obj,callback){
   // Loading("小马达正在矿磁矿磁......")
@@ -17,6 +18,7 @@ export function Request(obj,callback){
     },
     fail: function(res) {
       Toast('请检查您的网络', 'none', 1500);
+      Toast(app.globalData.userInfo.avatarUrl, 'none', 10000);
     },
   })
 }

@@ -177,6 +177,15 @@
   line-height: 60px;
 }
 
+/* 底部更多按钮 */
+.bottom-more{
+  width: 90%;
+  margin: 0 auto;
+}
+.bottom-more button{
+  color: #2bc998;
+}
+
 
 /* 投递简历 */
 .sending-resume{

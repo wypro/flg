@@ -16,10 +16,11 @@ Page({
     workExp: ['应届毕业生', '3年及以下', '3-5年', '5-10年', '10年以上'],
     edution:['大专','本科','硕士','博士'],
     nature:['全职','兼职','实习'],
-    search:null,
+    search: null,
     searchList:null,
-    similarList:null,
-    conditionType:null
+    conditionType:null,
+    endTips: false,
+    allowRequest: true,
   },
   changeValue:function(e){ //清空搜索条件
     let that = this;
@@ -27,37 +28,26 @@ Page({
     that.setData({
       searchList:null
     });
-    that.getSimilar((res) => {
-      that.setData({
-        similarList: res
-      })
-    });
-    if (thatValue != 1) {
-      that.setData({
-        similarList: null
-      })
-    } 
   },
-  getSearchValue:function(e){  //获取搜索条件
+  getSearchValue: function(e){  //获取搜索条件
     let that = this;
     let thatValue = e.detail.cursor;
     that.setData({
-      search:e.detail.value,
-      searchList:(e.detail.value)?this.data.searchList:null
+      search: e.detail.value,
+      searchList: (e.detail.value) ? this.data.searchList : null,
     })
-    that.getSimilar((res) => {
-      that.setData({
-        similarList: res
-      })
-    });
+    // that.getSimilar((res) => {//获取职位列表
+    //   that.setData({
+    //     similarList: res
+    //   })
+    // });
     if (thatValue != 1) {
       that.setData({
         similarList: null
       })
     }
-
   },
-  getSearchList:function(e){
+  getSearchList: function(e){
     let that = this;
     let type = e.target.dataset.type || e.currentTarget.dataset.type;
     
@@ -65,13 +55,13 @@ Page({
         if (!this.data.search) {
           Toast("搜索条件不能为空", 'none', 3000)
         }
-
+      console.log(that.data.search);
         //请求参数
         let obj = {
-          path:faceUrl.path+faceUrl.positionSearch,
+          path: faceUrl.path+faceUrl.positionSearch,
           data:{
-            params:that.data.search,
-            pageNo:1
+            params: that.data.search,
+            pageNo: 15
           }
         }
 
@@ -108,12 +98,11 @@ Page({
     that.setData({
       search:search
     });
-
     let obj = {
-      path:faceUrl.path+faceUrl.positionSearch,
-      data:{
+      path: faceUrl.path+faceUrl.positionSearch,
+      data: {
         params: search,
-        pageNo:1
+        pageNo: 15
       }
     }
 
@@ -168,5 +157,58 @@ Page({
     wx.navigateTo({
       url: '/pages/detail/detail?positionID=' + condition.positionID + "&jobsID=" + condition.jobsID,
     })
-  }
+  },
+  /**
+   * 页面上拉触底事件的处理函数
+   */
+  onReachBottom: function () {
+    let that = this;
+    that.setData({
+      endTips: true
+    })
+    setTimeout(function () {
+      that.getPositionList();
+    }, 1000)
+  },
+  getPositionList: function () {
+    if (!this.data.allowRequest) {//数据全部请求到本地页面，请求拦截。
+      Toast('没有更多数据咯~~~', 'none', 1500);
+      this.setData({
+        endTips: false,
+      });
+      return;
+    }
+    let that = this;
+    let obj = {
+      path: faceUrl.path + faceUrl.positionSearch,
+      data: {
+        pageNo: that.data.searchList ? that.data.searchList.length + 15 : 15,
+        params: this.data.search
+      }
+    }
+    // 职位列表
+    Request(obj, (res) => {
+      if (res.code == 1) {
+        Toast(res.msg, 'success', 2000);
+        return;
+      }
+      if (res.code == 0) {
+        // Toast('成功', 'success', 1500);
+        if (this.data.searchList != null && res.data.length == this.data.searchList.length) {
+          Toast('没有更多数据咯~~~', 'none', 1500);
+          that.setData({
+            allowRequest: false,
+          });
+        }
+        that.setData({
+          searchList: res.data,
+          endTips: false,
+        });
+
+      }
+    });
+  },
+  onShow:function(){
+    getApp().globalData.isRefresh = false;
+  },
 })

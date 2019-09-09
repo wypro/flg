@@ -36,15 +36,18 @@ App({
         }
       }
     })
+    console.log(0);
+    this.globalData.primarystart=true;
   },
   globalData: {
     cd: 0,
     sendCode: null,//客户端生成的验证码
     sendTel: null,//发送验证码时所用手机
-    isRefresh: true,
+    isRefresh: true,//控制页面数据是否语序刷新
+    params: "Java",//设置默认加载职业
     userInfo: {},
     isShow: false,
-    primarystart: 1,//第一次进入页面唯一标识 待用
+    primarystart: false,//初始化完成唯一标识 
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
   }, 
   

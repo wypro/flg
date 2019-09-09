@@ -7,7 +7,7 @@
   <!-- 排行列表 -->
   <view class='tips-list-box'>
   <view class='tips-border' wx:for="{{tipsList}}" wx:key="{{index+1}}">
-    <view class='tips-list'>
+    <view class='tips-list' bindtap="Loading">
       <view class='tips-left-img {{"num-img"+index+1}}'>{{index+1}}</view>
       <view class='tips-item'>
           <view class='tips-info'>
@@ -24,7 +24,7 @@
           </view>
       </view>
     </view>
-  </view>
+</view>
   <view class='end-tips'>
     <view wx:if="{{endTips?true:false}}" class='tips-loading'>加载中</view>
     <view wx:if="{{(tipsList.length>=100)?true:false}}" class='tips-loading'>没有更多数据了~~</view>

@@ -67,6 +67,7 @@ Page({
               url: '/pages/index/index'
             })
             getApp().globalData.isShow = true;
+            getApp().globalData.isRefresh = true;//允许刷新
             Toast('登录成功', 'success', 1500);
             // app.global.isShow = true;
           }

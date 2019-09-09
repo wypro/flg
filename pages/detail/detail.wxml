@@ -97,7 +97,9 @@
           wx:key="{{item.jobsID}}" />
     </view>
     <view class='not-similar' wx:if="{{similarInfo[0].positionName?false:true}}">暂无相似职位~~</view>
+    <view class="bottom-more"><button bindtap="Loading">查看更多相似职位</button></view>
   </view>
+  
 <!-- 投递简历 -->
   <view class='sending-resume'>
     <view class='sending-box' bindtap="Loading">
