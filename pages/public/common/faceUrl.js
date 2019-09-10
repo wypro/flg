@@ -3,6 +3,7 @@ const faceUrl = {
   //  path:'http://127.0.0.1:8080',
   path:'http://114.116.244.32:8080',
   login:'/login',
+  getCode: '/code/get',
   positionDetail:'/data/getJobsDetail',
   positionSearch:"/data/getJobsAll",
   tips:'/data/getTipsAll',

@@ -23,7 +23,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    if (app.globalData.cd>0){
+    if (app.globalData.cd > 0){
       this.setData({
         dsq: setInterval(this.setCD,1000),
         cd: app.globalData.cd,
@@ -90,35 +90,53 @@ Page({
       },
       
     }
-    // 获取验证码
+    // 登录/注册
     Request(obj, (res) => {
-      console.log(res);
-      if (res.code == 1) {
-        Toast(res.data.msg, 'none', 2000);
-      }
-      if (res.code == 0) {// 登录/注册成功
-        wx.setStorage({
-          key: 'userinfo',
-          data: JSON.stringify(data),
+      if (res.code == -1){
+        let returnValue = res;
+        wx.showModal({
+          title: '手机号码已注册',
+          content: returnValue.msg,
           success: function (res) {
-            wx.switchTab({
-              url: '/pages/index/index'
-            })
-            app.globalData.isShow = true;
-            app.globalData.isRefresh = true;
-            app.globalData.sendTel = null;
-            app.globalData.sendCode = null;
-            app.globalData.cd = 0;
-            Toast('登录成功', 'success', 1500);
+            if (res.confirm) {
+              console.log('用户点击确定');
+              that.loginSuccess(data);
+            } else {
+              console.log('用户点击取消');
+            }
           }
-        })
-        return;
+        });
+      } else if (res.code == 1) {
+        Toast(res.msg, 'none', 2000);
+        
+      } else if (res.code == 0) {// 登录/注册成功
+        that.loginSuccess(data);
       } else {//出现意外情况
-        Toast(res.data.msg, 'none', 2000);
+        Toast(res.msg, 'none', 2000);
       }
     });
     
   },
+  loginSuccess: function(data){
+    let that = this;
+    wx.setStorage({
+      key: 'userinfo',
+      data: JSON.stringify(data),
+      success: function (res) {
+        clearInterval(that.data.dsq);
+        app.globalData.isShow = true;
+        app.globalData.isRefresh = true;
+        app.globalData.sendTel = null;
+        app.globalData.sendCode = null;
+        app.globalData.cd = 0;
+        wx.switchTab({
+          url: '/pages/index/index',
+        })
+        Toast('登录成功', 'success', 1500);
+      }
+    });
+  }
+  ,
   togglelogin: function(){
     Toast('正在开发中...','none',1500);
   },
@@ -140,7 +158,7 @@ Page({
     let Code = parseInt(Math.random() * 899999 + 100000);
     
     let obj = {
-      path: 'http://127.0.0.1:8080/code/get',
+      path: faceUrl.path + faceUrl.getCode,
       data: {          
         param: Code,
         mobile: this.data.userTel,

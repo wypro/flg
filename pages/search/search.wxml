@@ -1,4 +1,5 @@
 <!--pages/search/search.wxml-->
+<!-- <view class="mask" hidden='{{!maskFlag}}'></view> -->
 <view class='search'>
   <view class='search-title'>
     <view class='search-title-content'>
@@ -15,7 +16,7 @@
         </view>
         <view
           class='search-input-btn'
-           wx:if="{{searchList?false:true}}"
+          wx:if="{{searchList?false:true}}"
           data-type='{{search?1:2}}'
           bindtouchstart='getSearchList'>{{search?"确定":"取消"}}</view>
       </view>
@@ -54,6 +55,7 @@
   <!-- 搜索后返回的数据 -->
   <view class='on-search' wx:if="{{searchList?true:false}}">
        <view class='search-sort-box'>
+       <!-- <view class="mask" hidden="{{!maskFlag}}"></view> -->
         <view
         bindtouchstart='showCondition'
         data-type="1"
@@ -73,6 +75,7 @@
       </view>
       <!-- 职位 -->
       <view class='search-nav'>
+        <view class="mask" hidden="{{!maskFlag}}"></view>
         <view class='search-nav-box'>
           <view class='{{(conditionType == 2)?"show-position":"hidde-position"}}'>
             <scroll-view class='scroll-view' scroll-y style="height: 350px;">
@@ -135,6 +138,7 @@
             <view class='sort-ok'>确定</view>
            </view>
         </view>
+        
       </view>
     
     <component-position
@@ -144,7 +148,9 @@
         wx:key="{{item.jobsID}}"
         data-condition="{{item.positionID}}"
         data-jobsID="{{item.jobsID}}"
-        bindtap='positionDetail'/>
+        bindtap='positionDetail'
+        class="{{maskFlag ? 'mm' : ''}}" />
+        
       <view class='end-tips'>
         <view wx:if="{{endTips?true:false}}" class='tips-loading'>加载中......</view>
         <view wx:if="{{!allowRequest}}" class='tips-loading'>没有更多数据了~~</view>
@@ -153,3 +159,4 @@
     
 </view>
 
+<view catchtouchmove="{{true}}"></view>

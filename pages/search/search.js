@@ -21,6 +21,7 @@ Page({
     conditionType: null,
     endTips: false,
     allowRequest: true,
+    maskFlag: false,//遮罩开启判断
   },
   changeValue:function(e){ //清空搜索条件
     let that = this;
@@ -146,15 +147,23 @@ Page({
     let type = e.target.dataset.type || e.currentTarget.dataset.type;
     if (this.data.conditionType == type) {
       this.setData({
-        conditionType: null
+        conditionType: null,
+        maskFlag: false,
       })
     }else{
       this.setData({
-        conditionType: type
+        conditionType: type,
+        maskFlag: true,
       })
     }
-    // console.log(this.data.conditionType)
   },
+  //滚动监听事件
+  // onPageScroll: function (e) {
+  //   this.setData({
+  //     conditionType: null,
+  //     maskFlag: false,
+  //   })
+  // },
   positionDetail: function (event) {
     let condition = {
       positionID: event.target.dataset.condition || event.currentTarget.dataset.condition,
@@ -217,4 +226,5 @@ Page({
   onShow:function(){
     getApp().globalData.isRefresh = false;
   },
+  
 })

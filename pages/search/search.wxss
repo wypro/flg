@@ -219,3 +219,12 @@ page{
   text-align: center;
   line-height: 50px;
 }
+
+.mask{
+  height: 100%;
+  width: 100%;
+  top: 8%;
+  position: fixed;
+  overflow: hidden;
+  background-color: #ccc;
+}

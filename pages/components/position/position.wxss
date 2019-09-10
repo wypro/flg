@@ -1,4 +1,8 @@
 /* pages/components/position/position.wxss */
+.position{
+  width: 100%;
+  height: 100%;
+}
 .position-item{
   display: flex;
   width: 90%;
