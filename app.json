@@ -13,7 +13,9 @@
     "pages/components/components-search/components-search",
     "pages/components/position/position",
     "pages/components/city/city",
+    "pages/components/similarPositions/similarPositions",
     "pages/logs/logs"
+
   ],
   "window": {
     "backgroundTextStyle": "light",

@@ -24,9 +24,14 @@
   width: 100%;
   flex: 1;
 }
+.position-middle{
+  width: 70%;
+  margin: 0;
+  padding: 0;
+}
 .position-name{
   overflow: hidden;
-  text-overflow:ellipsis;
+  text-overflow: ellipsis;
   white-space: nowrap;
 }
 .company-name{
@@ -50,6 +55,7 @@
   flex-wrap: wrap;
   flex-direction: column;
   justify-content: space-between;
+  width: 30%;
 }
 .position-item-right text{
   width: 100%;

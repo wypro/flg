@@ -18,7 +18,7 @@ Page({
     nature:['全职','兼职','实习'],
     search: null,
     searchList:null,
-    conditionType:null,
+    conditionType: null,
     endTips: false,
     allowRequest: true,
   },
@@ -144,9 +144,15 @@ Page({
   showCondition:function(e){
     // console.log(e)
     let type = e.target.dataset.type || e.currentTarget.dataset.type;
-    this.setData({
-      conditionType:type
-    })
+    if (this.data.conditionType == type) {
+      this.setData({
+        conditionType: null
+      })
+    }else{
+      this.setData({
+        conditionType: type
+      })
+    }
     // console.log(this.data.conditionType)
   },
   positionDetail: function (event) {

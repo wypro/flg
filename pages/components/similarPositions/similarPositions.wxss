@@ -11,7 +11,15 @@
   justify-content: space-between;
   line-height: 25px;
 }
+.positionName{
+  width: 70%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
 .similar-position-salary{
+  text-align: right;
+  width: 30%;
   color: #fb6b46;
 }
 .similar-item-about{
@@ -58,3 +66,4 @@
 .similar-item-company text{
   margin: 0 3rpx;
 }
+

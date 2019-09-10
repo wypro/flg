@@ -103,7 +103,7 @@ Page({
     }
     let that = this;
     let obj = {
-      path: "http://127.0.0.1:8080/data/getJobsAll",
+      path: faceUrl.path + faceUrl.positionSearch ,
       data: { 
         pageNo: that.data.positionList ? that.data.positionList.length+15:15 ,
         params: this.data.searchValue ? this.data.searchValue : app.globalData.params ,

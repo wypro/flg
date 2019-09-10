@@ -10,7 +10,7 @@ Component({
   data:{
     searchArr:["Java","PHP","Android","iOS","前端","测试","运维","产品经理","设计师","运营","市场","销售经理"],
     isValue:false,
-    searchValue:null
+    searchValue: null
   },
   
   methods:{
@@ -19,13 +19,13 @@ Component({
         searchValue: event.detail.value
       })
     },
-    search:function(){
+    search: function(){
       if(!this.data.searchValue){
         console.log("搜索内容不能为空");
         return;
       }
       let obj = {
-        path: "http://127.0.0.1:8080/data/getJobsAll",
+        path: faceUrl.path + faceUrl.positionSearch ,
         data: { 
           pageNo: 15,
           params: this.data.searchValue 
@@ -50,6 +50,5 @@ Component({
         searchValue:item
       })
     }
-  }
-  
+  },
 })

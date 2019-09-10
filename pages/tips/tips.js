@@ -24,8 +24,7 @@ Page({
     })
     let that = this;
     let obj = {
-      // path:faceUrl.path+faceUrl.tips,
-      path: "http://127.0.0.1:8080/data/getTipsAll",
+      path:faceUrl.path+faceUrl.tips,
       data:{
         pageNo: 10
       }
@@ -88,7 +87,7 @@ Page({
       endTips:true
     })
     let obj = {
-      path: "http://127.0.0.1:8080/data/getTipsAll",
+      path: faceUrl.path + faceUrl.tips,
       data: {
         pageNo: that.data.tipsList.length+10
       }

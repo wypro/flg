@@ -3,7 +3,7 @@
   <view class='similar-item'>
     <view class='similar-top'>
       <view class='similar-item-name'>
-        <text>{{item.positionName}}</text>
+        <text class="positionName">{{item.positionName}}</text>
         <text class='similar-position-salary'>{{item.salary}}</text>
       </view>
       <view class='similar-item-about'>

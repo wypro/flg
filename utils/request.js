@@ -18,7 +18,6 @@ export function Request(obj,callback){
     },
     fail: function(res) {
       Toast('请检查您的网络', 'none', 1500);
-      Toast(app.globalData.userInfo.avatarUrl, 'none', 10000);
     },
   })
 }

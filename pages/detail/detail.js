@@ -29,7 +29,7 @@ Page({
     let that = this;
     //职位详情请求
     let detailObj = {
-      path: "http://127.0.0.1:8080/data/getJobsDetail",
+      path: faceUrl.path + faceUrl.positionDetail,
       data:{
         positionID: options.positionID,
         jobsID: options.jobsID
@@ -63,7 +63,7 @@ Page({
 
         //发起请求--相似职位
         let obj = {
-          path: "http://127.0.0.1:8080/data/getJobsAll",
+          path: faceUrl.path + faceUrl.positionSearch,
           data: { 
             pageNo: 5,
             params: that.data.similar,
