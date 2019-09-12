@@ -135,4 +135,13 @@ Page({
   onLoad:function(){
     
   },
+  post: function(e){
+    console.log(e);
+    wx.navigateTo({
+      url: e.target.dataset.page || e.currentTarget.dataset.page,
+      success: function(res) {},
+      fail: function(res) {},
+      complete: function(res) {},
+    })
+  },
 })

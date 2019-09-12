@@ -1,11 +1,16 @@
 <!--pages/search/search.wxml-->
 <!-- <view class="mask" hidden='{{!maskFlag}}'></view> -->
-<view class='search'>
+<view class='search' catchtouchmove="{{maskFlag ? 'stopScroll' : ''}}">
   <view class='search-title'>
     <view class='search-title-content'>
       <view class='search-box'>
         <view class='search-city' wx:if="{{searchList?false:true}}">
-          <text>成都</text><image src='../public/images/icon/back.png'></image>
+          <picker bindchange="bindPickerChange" mode='region'>
+            <view class="picker">
+                {{gender ? gender : '长沙'}}
+            </view>
+          </picker>
+          <image src='../public/images/icon/back.png'></image>
         </view>
         <view class='search-input-box {{searchList?"haveInfo":""}}'>
           <icon class='search-input-icon' type='search' size='16'></icon>
@@ -22,7 +27,7 @@
       </view>
     </view>
 
-    <view class='similar-list' wx:if="{{similarList?true:false}}">
+    <view class='similar-list' wx:if="{{similarList ? true : false}}">
         <view>
           <view 
             class='similar-item'
@@ -55,7 +60,6 @@
   <!-- 搜索后返回的数据 -->
   <view class='on-search' wx:if="{{searchList?true:false}}">
        <view class='search-sort-box'>
-       <!-- <view class="mask" hidden="{{!maskFlag}}"></view> -->
         <view
         bindtouchstart='showCondition'
         data-type="1"
@@ -148,15 +152,11 @@
         wx:key="{{item.jobsID}}"
         data-condition="{{item.positionID}}"
         data-jobsID="{{item.jobsID}}"
-        bindtap='positionDetail'
-        class="{{maskFlag ? 'mm' : ''}}" />
+        bindtap='positionDetail' />
         
       <view class='end-tips'>
         <view wx:if="{{endTips?true:false}}" class='tips-loading'>加载中......</view>
         <view wx:if="{{!allowRequest}}" class='tips-loading'>没有更多数据了~~</view>
       </view>
     </view>
-    
 </view>
-
-<view catchtouchmove="{{true}}"></view>

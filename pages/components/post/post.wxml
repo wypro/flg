@@ -1,0 +1,3 @@
+<view class="padding flex flex-direction">
+  <button class="cu-btn bg-green lg" bindtap='post' disabled='{{!canPost}}'>发布</button>
+</view>

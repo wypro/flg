@@ -4,6 +4,12 @@ const faceUrl = require('../public/common/faceUrl');
 const { Toast, Loading } = require("../public/common/Toast");
 const { Request } = require("../../utils/request.js");
 const xq = require("../index/index.js");
+var area = require("../public/common/area.js");
+
+
+let provinceArray = [];
+let cityArray = [];
+
 Page({
 
   /**
@@ -22,6 +28,10 @@ Page({
     endTips: false,
     allowRequest: true,
     maskFlag: false,//遮罩开启判断
+    cityArray: cityArray,
+    provinceArray: provinceArray,
+    array: area.data,
+    gender: null ,
   },
   changeValue:function(e){ //清空搜索条件
     let that = this;
@@ -226,5 +236,18 @@ Page({
   onShow:function(){
     getApp().globalData.isRefresh = false;
   },
-  
+  // 默认阻止滚动
+  stopScroll() {
+
+  },
+  //选择城市
+  bindPickerChange: function (e) {
+    console.log('picker发送选择改变，携带值为', e.detail.value);
+    let city = e.detail.value[1];
+    
+    this.setData({
+      gender: city.substring(0, city.length-1),
+      genderValue: e.detail.value
+    })
+  },
 })

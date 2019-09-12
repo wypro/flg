@@ -26,6 +26,13 @@
         data-jobsID="{{item.jobsID}}"
         bindtap='positionDetail'/>
     </view>
+    <!-- 发布表白墙的按钮 -->
+    <view class='post-container' wx:if='{{true}}'>
+        <view class='wall'></view>
+        <view class='post'>
+            <image src='../public/images/post.png' data-page='../components/post/post' bindtap='post'></image>
+        </view>
+    </view>
     <view class='end-tips'>
     <view wx:if="{{endTips?true:false}}" class='tips-loading'>加载中......</view>
     <view wx:if="{{!allowRequest}}" class='tips-loading'>没有更多数据了~~</view>

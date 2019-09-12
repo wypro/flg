@@ -33,12 +33,12 @@ page{
   display: flex;
   align-items: center;
 }
-.search-city text{
-  min-width: 40px;
-  max-width: 40px;
+.search-city .picker{
+  min-width: 50px;
+  max-width: 50px;
   overflow: hidden;
-  white-space: nowrap;
   text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .search-city image{
   width: 10px;
@@ -219,12 +219,12 @@ page{
   text-align: center;
   line-height: 50px;
 }
-
+/* 遮罩 */
 .mask{
   height: 100%;
   width: 100%;
-  top: 8%;
+  top: 20%;
   position: fixed;
   overflow: hidden;
-  background-color: #ccc;
+  background-color: gainsboro;
 }
