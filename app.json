@@ -5,6 +5,7 @@
     "pages/index/index",
     "pages/tips/tips",
     "pages/center/center",
+    "pages/resume/resume",
     "pages/search/search",
     "pages/detail/detail",
     "pages/components/login-other/login-other",

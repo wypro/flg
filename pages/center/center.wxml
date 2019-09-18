@@ -36,7 +36,9 @@
       class='center-item'
       wx:for="{{aboutArr}}"
       wx-item="{{item}}"
-      wx:key="{item.txt}}">
+      wx:key="{item.txt}}"
+      id="{{index}}"
+      bindtap="togglePage">
         <view>
           <view>
           <image class='center-img' src='{{item.img}}'></image>

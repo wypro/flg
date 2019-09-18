@@ -87,6 +87,7 @@ Page({
       path: faceUrl.path + faceUrl.register ,
       data:{
         tel: app.globalData.sendTel,
+        wxid: app.globalData.wxid,
       },
       
     }
@@ -145,12 +146,12 @@ Page({
   },
   getCode: function () {
     let that=this;
-    if (this.data.cd != 0) {
-      Toast('提示：冷却时间未到无法重新发送', 'none', 2000);
+    if (this.data.cd != 0 || this.data.dsq != null) {
+      Toast('冷却时间未到无法重新发送', 'none', 2000);
       return;
     }
     if (!this.data.userTel) {
-      Toast('提示：电话号码不能为空', 'none', 2000);
+      Toast('电话号码不能为空', 'none', 2000);
       return;
     }
     
@@ -165,14 +166,13 @@ Page({
         wxappid: wx.getAccountInfoSync().miniProgram.appId,
       }
     }
-    
+    if (this.data.dsq != null) return;
     // 获取验证码
     Request(obj, (res) => {
         if(res.code == 1) {
           Toast(res.msg, 'none', 2000);
       }
       if (res.code == 0) {//发送成功
-        Toast(res.msg, 'success', 1500);
         this.setData({
           cd: 60,
           isSend: true,
@@ -182,6 +182,7 @@ Page({
         this.setData({
           dsq: setInterval(this.setCD, 1000),
         });
+        Toast(res.msg, 'success', 1000);
         return;
       } else {//出现意外情况
         Toast(res.msg, 'none', 2000);
@@ -194,6 +195,7 @@ Page({
       this.setData({
         isSend: false,
         cdTest: '重新发送',
+        dsq: null,
       });
       app.globalData.sendCode = null;
       app.globalData.sendTel = null;

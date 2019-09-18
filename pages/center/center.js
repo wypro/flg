@@ -49,6 +49,7 @@ Page({
       })
         return;
     }
+
     app.globalData.userInfo = e.detail.userInfo
     this.setData({
       userInfo: {
@@ -126,6 +127,16 @@ Page({
   },
   toggleRole: function(){
     Toast('正在开发中...','none',1500);
+  },
+  togglePage: function(e){
+    console.log(e);
+    switch (e.currentTarget.id){
+      case '0': 
+        wx.navigateTo({
+          url: '../resume/resume',
+        })
+        break;
+    }
   },
   /**
    * 生命周期函数--监听页面加载

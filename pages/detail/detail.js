@@ -16,6 +16,7 @@ Page({
     similarInfo:null,
     positionID: null,
     jobsID: null,
+    td: false,
   },
 
   /**
@@ -160,6 +161,16 @@ Page({
 
   },
   Loading: function(){
+    if (this.data.td){
+      this.setData({
+        td: false,
+      });
+    } else {
+      this.setData({
+        td: true,
+      });
+    }
+    
     Toast("Building...","none",2000);
   }
 })

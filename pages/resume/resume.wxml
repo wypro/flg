@@ -1,0 +1,74 @@
+<!--pages/resume/resume.wxml-->
+<form class="">
+  <view class="chooseImage" bindtap="chooseImage">
+    <view class="modify-logo"></view>
+    <view class='logo'>
+      <image src="{{ images!=null ? images : '../public/images/icon/user.png' }}" mode="aspectFill"></image>
+    </view>
+    <view class="modify-logo">修改头像</view>
+  </view>
+  <view class="ms">
+    <view>基本信息（必填）</view>
+  </view>
+  <view class="info">
+    <view>
+      <view>姓名</view>
+      <input type="text" value='{{name}}' data-type="1" bindinput='changeLoginInfo' placeholder="输入姓名"></input>
+    </view>
+    <view>
+      <view>性别</view>
+      <label>
+        <picker bindchange="bindPickerChange" id="sex" range="{{arraySex}}">
+            <label class="piker">{{ Sex ? Sex : '' }}</label>  
+            <image class='center-icon' src='../public/images/icon/rightback.png'></image>  
+        </picker>
+      </label>
+    </view>
+    <view>
+      <view>年龄</view>
+      <input type="text" value='{{age}}' data-type="2" bindinput='changeLoginInfo' placeholder="输入年龄"></input>
+    </view>
+    <view>
+      <view>职业</view>
+      <label>
+        <picker bindchange="bindPickerChange" id="job" range="{{arrayJob}}">
+            <label class="piker">{{ Job ? Job : '' }}</label>  
+            <image class='center-icon' src='../public/images/icon/rightback.png'></image>  
+        </picker>
+      </label>
+    </view>
+    <view>
+      <view>学历</view>
+      <label>
+        <picker bindchange="bindPickerChange" id="edu" range="{{arrayEdu}}">
+            <label class="piker">{{ Edu ? Edu : '' }}</label>  
+            <image class='center-icon' src='../public/images/icon/rightback.png'></image>  
+        </picker>
+      </label>
+    </view>
+    <view>
+      <view>电话</view>
+      <input type="text" value='{{tel}}' data-type="3" bindinput='changeLoginInfo' placeholder="输入电话"></input>
+    </view>
+    <view>
+      <view>邮箱</view>
+      <input type="text" value='{{email}}' data-type="4" bindinput='changeLoginInfo' placeholder="输入邮箱"></input>
+    </view>
+  </view>
+  <!-- 选填信息 -->
+  <view class="ms">
+    <view>选填信息</view>
+  </view>
+  <view class="info">
+    <view>
+      <view>QQ</view>
+      <input type="text" value='{{qq}}' data-type="5" bindinput='changeLoginInfo' placeholder="输入QQ "></input>
+    </view>
+    <view>
+      <view>微信</view>
+      <input type="text" value='{{wx}}' data-type="6" bindinput='changeLoginInfo' placeholder="输入微信"></input>
+    </view>
+  </view>
+  <!-- 提交 -->
+  <button class="btn" bindtap="submitForm">完成</button>
+</form>

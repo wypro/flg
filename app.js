@@ -14,8 +14,26 @@ App({
     wx.login({
       success: res => {
         // 发送 res.code 到后台换取 openId, sessionKey, unionId
+        if (res.code) {
+          //发起网络请求
+          wx.request({
+            url: 'http://114.116.244.32:8080/lr/getWxId',
+            method: 'POST',
+            data: {
+              code: res.code,
+              wxappid: wx.getAccountInfoSync().miniProgram.appId,
+            },
+            success: function (res){
+              console.log(res.data);
+              that.globalData.wxid = res.data.data.openid;
+              that.globalData.sessionid = res.data.data.session_key;
+            },
+          })
+        } else {
+          console.log('登录失败！' + res.errMsg)
+        }
       }
-    })
+    });//login end
     // 获取用户信息
     wx.getSetting({
       success: res => {
@@ -36,11 +54,12 @@ App({
         }
       }
     })
-    console.log(0);
     this.globalData.primarystart=true;
   },
   globalData: {
     cd: 0,
+    wxid: null,//微信openid
+    sessionid: null,//微信会话id
     sendCode: null,//客户端生成的验证码
     sendTel: null,//发送验证码时所用手机
     isRefresh: true,//控制页面数据是否语序刷新

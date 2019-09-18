@@ -102,10 +102,15 @@
   
 <!-- 投递简历 -->
   <view class='sending-resume'>
+    <!-- <view class="td" wx:if="{{td}}" >
+      <view class='resume-about'>取消</view>
+      <view class='resume'>立即投递</view>
+    </view> -->
     <view class='sending-box' bindtap="Loading">
       <view class='resume-about'>分享</view>
       <view class='resume-about'>收藏</view>
       <view class='resume'>投递简历</view>
     </view>
+    
   </view>
 </view>
