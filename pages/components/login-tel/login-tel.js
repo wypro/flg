@@ -87,7 +87,7 @@ Page({
       path: faceUrl.path + faceUrl.register ,
       data:{
         tel: app.globalData.sendTel,
-        wxid: app.globalData.wxid,
+        // wxid: app.globalData.wxid,
       },
       
     }
@@ -146,6 +146,11 @@ Page({
   },
   getCode: function () {
     let that=this;
+    wx.showLoading({
+      title: 'loading...',
+      icon: 'none',
+      mask: true
+    });
     if (this.data.cd != 0 || this.data.dsq != null) {
       Toast('冷却时间未到无法重新发送', 'none', 2000);
       return;
@@ -173,6 +178,7 @@ Page({
           Toast(res.msg, 'none', 2000);
       }
       if (res.code == 0) {//发送成功
+        
         this.setData({
           cd: 60,
           isSend: true,
@@ -182,7 +188,8 @@ Page({
         this.setData({
           dsq: setInterval(this.setCD, 1000),
         });
-        Toast(res.msg, 'success', 1000);
+        Toast(res.msg,'success',1000);
+        wx.hideLoading();
         return;
       } else {//出现意外情况
         Toast(res.msg, 'none', 2000);

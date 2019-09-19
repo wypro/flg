@@ -164,6 +164,10 @@ Page({
   },
   //投递简历
   submitResume:function(){
+    wx.showLoading({
+      title: 'loading...',
+      mask: true,
+    })
     console.log(app.globalData.isShow + "-" + this.data.isBtnLogin);
     if (!app.globalData.isShow) {
       this.setData({
@@ -172,6 +176,7 @@ Page({
       this.setData({
         isBtnLogin: false
       })
+      wx.hideLoading();
       return;
     }
     let obj = {
@@ -182,6 +187,7 @@ Page({
     };
     Request(obj , (res) => {
       let that = this;
+      wx.hideLoading();
       if (res.code == 0){
         let data = res.data;
         data.jobsID = this.data.jobsID;

@@ -15,6 +15,30 @@ Page({
         title: '请稍等...',
         mask: true,
       })
+      // 登录
+      wx.login({
+        success: res => {
+          // 发送 res.code 到后台换取 openId, sessionKey, unionId
+          if (res.code) {
+            //发起网络请求
+            wx.request({
+              url: faceUrl.path + faceUrl.getwxid,
+              method: 'POST',
+              data: {
+                code: res.code,
+                wxappid: wx.getAccountInfoSync().miniProgram.appId,
+              },
+              success: function (res) {
+                console.log(res.data);
+                app.globalData.wxid = res.data.data.openid;
+                app.globalData.sessionid = res.data.data.session_key;
+              },
+            })
+          } else {
+            console.log('登录失败！' + res.errMsg)
+          }
+        }
+      });//login end
       if (app.globalData.primarystart) {
         wx.switchTab({
           url: '../index/index',
@@ -22,30 +46,7 @@ Page({
         wx.hideLoading();
       }
     }, 1000)//等待程序初始化
-    // 登录
-    wx.login({
-      success: res => {
-        // 发送 res.code 到后台换取 openId, sessionKey, unionId
-        if (res.code) {
-          //发起网络请求
-          wx.request({
-            url: faceUrl.path + faceUrl.getwxid,
-            method: 'POST',
-            data: {
-              code: res.code,
-              wxappid: wx.getAccountInfoSync().miniProgram.appId,
-            },
-            success: function (res) {
-              console.log(res.data);
-              app.globalData.wxid = res.data.data.openid;
-              app.globalData.sessionid = res.data.data.session_key;
-            },
-          })
-        } else {
-          console.log('登录失败！' + res.errMsg)
-        }
-      }
-    });//login end
+    
   },
   //页面渲染事件
   onShow: function(){

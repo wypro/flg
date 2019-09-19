@@ -69,30 +69,30 @@ Page({
       title: 'Loading',
       mask: true,
     })
-    // let form = {
-    //   wxid: getApp().globalData.wxid,
-    //   name: this.data.name,
-    //   Sex: this.data.Sex,
-    //   age: this.data.age,
-    //   Job: this.data.Job,
-    //   Edu: this.data.Edu,
-    //   tel: this.data.tel,
-    //   email: this.data.email,
-    //   qq: this.data.qq == null || this.data.qq == "" ? '-1' : this.data.qq  ,
-    //   wx: this.data.wx == null || this.data.wx == "" ? '-1' : this.data.wx ,
-    // }
     let form = {
       wxid: getApp().globalData.wxid,
-      name: '王勇',
-      Sex: '男',
-      age: '18',
-      Job: '上班族',
-      Edu: '博士',
-      tel: '15173266049',
-      email: '1214742155@qq.com',
-      qq: '1214742155',
-      wx: 'wy1214742155',
+      name: this.data.name,
+      Sex: this.data.Sex,
+      age: this.data.age,
+      Job: this.data.Job,
+      Edu: this.data.Edu,
+      tel: this.data.tel,
+      email: this.data.email,
+      qq: this.data.qq == null || this.data.qq == "" ? '-1' : this.data.qq  ,
+      wx: this.data.wx == null || this.data.wx == "" ? '-1' : this.data.wx ,
     }
+    // let form = {
+    //   wxid: getApp().globalData.wxid,
+    //   name: '王勇',
+    //   Sex: '男',
+    //   age: '18',
+    //   Job: '上班族',
+    //   Edu: '博士',
+    //   tel: '15173266049',
+    //   email: '1214742155@qq.com',
+    //   qq: '1214742155',
+    //   wx: 'wy1214742155',
+    // }
     // console.log(form);
     for (var item in form) {
       if (item == 'qq' || item == 'wx') {
