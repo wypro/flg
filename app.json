@@ -13,6 +13,7 @@
     "pages/components/login-wx/login-wx",
     "pages/components/components-search/components-search",
     "pages/components/position/position",
+    "pages/components/loginModule/loginModule",
     "pages/components/city/city",
     "pages/components/similarPositions/similarPositions",
     "pages/logs/logs",

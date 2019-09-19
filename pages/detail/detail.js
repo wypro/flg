@@ -17,6 +17,8 @@ Page({
     positionID: null,
     jobsID: null,
     td: false,
+    isBtnLogin: true,
+    canIUse: wx.canIUse('button.open-type.getUserInfo'),
   },
 
   /**
@@ -43,7 +45,7 @@ Page({
 
     Request(detailObj,(res)=>{
       if (res.code == 1) {  //后台代码错误
-        Toast(res.msg, 'success', 2000);
+        Toast(res.msg, 'none', 2000);
         return;
       }
       if (res.code == 2) { //数据为空
@@ -75,7 +77,7 @@ Page({
         Request(obj, (res) => {
           // console.log(that.data.similar, 'sim')
           if (res.code == 1) {  //后台代码错误
-            Toast(res.msg, 'success', 2000);
+            Toast(res.msg, 'none', 2000);
             return;
           }
           if (res.code == 2) { //数据为空
@@ -160,16 +162,91 @@ Page({
   onShareAppMessage: function () {
 
   },
-  Loading: function(){
-    if (this.data.td){
+  //投递简历
+  submitResume:function(){
+    console.log(app.globalData.isShow + "-" + this.data.isBtnLogin);
+    if (!app.globalData.isShow) {
       this.setData({
-        td: false,
-      });
-    } else {
+        isBtnLogin: true
+      })
       this.setData({
-        td: true,
-      });
+        isBtnLogin: false
+      })
+      return;
     }
+    let obj = {
+      path: faceUrl.path + faceUrl.getResume, 
+      data: {
+        wxid: getApp().globalData.wxid,
+      },
+    };
+    Request(obj , (res) => {
+      let that = this;
+      if (res.code == 0){
+        let data = res.data;
+        data.jobsID = this.data.jobsID;
+        wx.showModal({
+          title: '确认投递',
+          content: '确认投递该职位？',
+          success: function (res) {
+            if (res.confirm) {
+              console.log('用户点击确定');
+              
+              let td = {
+                path: faceUrl.path + faceUrl.deliveryResume,
+                data: data
+              }
+
+              Request(td, (res) => {
+                if (res.code == 0) {
+                  
+                }
+              });
+            } else {
+              console.log('用户点击取消');
+              let td = {
+                path: faceUrl.path + faceUrl.recruiterGetResume,
+                data: {
+                  jobsID: that.data.jobsID,
+                }
+              }
+              Request(td, (res) => {
+                if (res.code == 0) {
+                  
+                }
+              });
+            }
+          }
+        });
+      }
+      if (res.code == 1) {
+        Toast('投递失败','none',1000);
+      }
+      if (res.code == -1) {
+        wx.showModal({
+          title: '简历未填写',
+          content: '是否前往填写简历？',
+          success: function (res) {
+            if (res.confirm) {
+              console.log('用户点击确定');
+              wx.navigateTo({
+                url: '../resume/resume',
+              });
+            } else {
+              console.log('用户点击取消');
+            }
+          }
+        });
+      }
+    });
+    
+  },
+  Loading: function(){
+    let td = this.data.td;
+
+    this.setData({
+      td: !td,
+    });
     
     Toast("Building...","none",2000);
   }

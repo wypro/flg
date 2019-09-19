@@ -1,0 +1,25 @@
+<!--pages/components/loginModule/loginModule.wxml-->
+<position>
+  <view class='login-module' wx:if="{{isBtnLogin?false:true}}">
+  <view class='login-module-box'>
+    <view 
+      class='login-module-close'  
+      bindtouchstart='loginModule'>
+      <image src='../../public/images/icon/cha.png'></image>
+    </view>
+    <view class='login-module-title'>登录或注册拉勾</view>
+    <button
+      class='login-module-wx login-mode'
+      data-page="wx"
+      open-type="getUserInfo" bindgetuserinfo="getUserInfo" >微信账号快速登录</button>
+    <view 
+      class='login-module-tel login-mode'
+      data-page="tel"
+      bindtouchstart='loginPage'>手机号注册/登录</view>
+    <view
+      class='login-module-other'
+      data-page="other"
+      bindtouchstart='loginPage'>其他方式登录</view>
+    </view>
+  </view>
+</position>

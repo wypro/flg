@@ -21,89 +21,22 @@ Page({
         txt: '意见反馈',
         img: '../public/images/icon/fankui.png'
     }],
-    isBtnLogin:true,
-    loginModeArr:[{
-      path:'../components/login-other/login-other',
-      type:'other'
-    },{
-        path: '../components/login-wx/login-wx',
-        type: 'wx'
-    },{
-        path: '../components/login-tel/login-tel',
-        type: 'tel'
-    }],
+    isBtnLogin: true,
     isUser: false,
     userInfo: null,
-    canIUse: wx.canIUse('button.open-type.getUserInfo')
   },
-  /**
-   * 微信快速登录
-   */
-  
-  getUserInfo: function(e){
-    console.log(e)
-    if (e.detail.userInfo==null){
-      Toast('取消授权','none',1500);
-      this.setData({
-        isBtnLogin: true
-      })
-        return;
-    }
-
-    app.globalData.userInfo = e.detail.userInfo
-    this.setData({
-      userInfo: {
-        userName: app.globalData.userInfo.nickName,
-        userImg: app.globalData.userInfo.avatarUrl,
-      }
-    });
-    wx.setStorage({
-      key: 'userinfo',
-      data: JSON.stringify({
-        userName: app.globalData.userInfo.nickName,
-        userImg: app.globalData.userInfo.avatarUrl,
-      }),
-      success: function (res) {
-        wx.switchTab({
-          url: '/pages/index/index'
-        })
-        getApp().globalData.isShow = true;
-        getApp().globalData.isRefresh = true;
-        Toast('登录成功', 'success', 1500);
-      }
-    })
+  // 是否显示登录选择弹窗
+  loginModule: function () {
+    if (app.globalData.isShow) {
+      Toast('正在开发中...', 'none', 2000);
+      return;
+    };
     this.setData({
       isBtnLogin: true
     })
-  },
-  /**
-   * 自定义事件
-   */
-  // 是否显示登录选择弹窗
-  loginModule:function(e){
-    if (app.globalData.isShow){ 
-      Toast('正在开发中...','none',2000);
-      return;
-    };
-    let show = e.target.dataset.isshow || e.currentTarget.dataset.isshow;
     this.setData({
-      isBtnLogin: show
+      isBtnLogin: false
     })
-  },
-  // 跳转到各个登录页面
-  loginPage:function(e){
-    let page = e.target.dataset.page || e.currentTarget.dataset.page;
-
-    for(let i = 0; i < 3; i++){
-      if (this.data.loginModeArr[i].type.includes(page)) {
-        wx.navigateTo({
-          url: this.data.loginModeArr[i].path,
-        })
-        this.setData({
-          isBtnLogin:true
-        });
-      }
-    }
   },
   //退出登录
   loginOut:function(e){
@@ -129,7 +62,16 @@ Page({
     Toast('正在开发中...','none',1500);
   },
   togglePage: function(e){
-    console.log(e);
+    // console.log(e);
+    if (!app.globalData.isShow){
+      this.setData({
+        isBtnLogin: true
+      })
+      this.setData({
+        isBtnLogin: false
+      })
+      return;
+    }
     switch (e.currentTarget.id){
       case '0': 
         wx.navigateTo({
@@ -137,6 +79,7 @@ Page({
         })
         break;
     }
+    Toast('建设中...','none',1000);
   },
   /**
    * 生命周期函数--监听页面加载

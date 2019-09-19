@@ -7,13 +7,13 @@ const { Request } = require("../../utils/request.js");
 
 Page({
   data: {
-    userInfo:null,
-    isLogin:false,
+    userInfo: null,
+    isLogin: false,
     isShow: false,
-    pageNo:1,
-    positionList:null,
-    endTips:false,
-    searchValue:null,
+    pageNo: 1,
+    positionList: null,
+    endTips: false,
+    searchValue: null,
     allowRequest: true,
   },
   changeIsShow: function (e) {

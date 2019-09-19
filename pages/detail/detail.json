@@ -1,6 +1,8 @@
 {
+  "component": true,
   "usingComponents": {
-    "similarPositions":"../components/similarPositions/similarPositions"
+    "similarPositions":"../components/similarPositions/similarPositions",
+    "component-Module": "../components/loginModule/loginModule"
   },
   "navigationBarBackgroundColor": "#ffffff",
   "navigationBarTextStyle": "black",

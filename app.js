@@ -10,30 +10,6 @@ App({
        that.globalData.isShow = (res.data == '')?false:true;
      },
    })
-    // 登录
-    wx.login({
-      success: res => {
-        // 发送 res.code 到后台换取 openId, sessionKey, unionId
-        if (res.code) {
-          //发起网络请求
-          wx.request({
-            url: 'http://114.116.244.32:8080/lr/getWxId',
-            method: 'POST',
-            data: {
-              code: res.code,
-              wxappid: wx.getAccountInfoSync().miniProgram.appId,
-            },
-            success: function (res){
-              console.log(res.data);
-              that.globalData.wxid = res.data.data.openid;
-              that.globalData.sessionid = res.data.data.session_key;
-            },
-          })
-        } else {
-          console.log('登录失败！' + res.errMsg)
-        }
-      }
-    });//login end
     // 获取用户信息
     wx.getSetting({
       success: res => {
@@ -62,9 +38,10 @@ App({
     sessionid: null,//微信会话id
     sendCode: null,//客户端生成的验证码
     sendTel: null,//发送验证码时所用手机
-    isRefresh: true,//控制页面数据是否语序刷新
+    isRefresh: true,//控制页面数据是否允许刷新
     params: "Java",//设置默认加载职业
     userInfo: {},
+    isBtnLogin: true,//控制登录窗口
     isShow: false,
     primarystart: false,//初始化完成唯一标识 
     canIUse: wx.canIUse('button.open-type.getUserInfo'),

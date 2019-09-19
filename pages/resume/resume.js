@@ -69,30 +69,30 @@ Page({
       title: 'Loading',
       mask: true,
     })
-    let form = {
-      wxid: getApp().globalData.wxid,
-      name: this.data.name,
-      sex: this.data.Sex,
-      age: this.data.age,
-      work: this.data.Job,
-      edu: this.data.Edu,
-      tel: this.data.tel,
-      email: this.data.email,
-      qq: this.data.qq == null || this.data.qq == "" ? '-1' : this.data.qq  ,
-      wx: this.data.wx == null || this.data.wx == "" ? '-1' : this.data.wx ,
-    }
     // let form = {
     //   wxid: getApp().globalData.wxid,
-    //   name: '王勇',
-    //   sex: '男',
-    //   age: '18',
-    //   work: '上班族',
-    //   edu: '博士',
-    //   tel: '15173266049',
-    //   email: '1214742155@qq.com',
-    //   qq: '1214742155',
-    //   wx: 'wy1214742155',
+    //   name: this.data.name,
+    //   Sex: this.data.Sex,
+    //   age: this.data.age,
+    //   Job: this.data.Job,
+    //   Edu: this.data.Edu,
+    //   tel: this.data.tel,
+    //   email: this.data.email,
+    //   qq: this.data.qq == null || this.data.qq == "" ? '-1' : this.data.qq  ,
+    //   wx: this.data.wx == null || this.data.wx == "" ? '-1' : this.data.wx ,
     // }
+    let form = {
+      wxid: getApp().globalData.wxid,
+      name: '王勇',
+      Sex: '男',
+      age: '18',
+      Job: '上班族',
+      Edu: '博士',
+      tel: '15173266049',
+      email: '1214742155@qq.com',
+      qq: '1214742155',
+      wx: 'wy1214742155',
+    }
     // console.log(form);
     for (var item in form) {
       if (item == 'qq' || item == 'wx') {
@@ -140,7 +140,6 @@ Page({
 
     //发起请求
     Request(obj, (res) => {
-      console.log(res);
       if (res.code == 1) {
         Toast("更改失败！", 'none', 2000);
         return;
@@ -151,8 +150,9 @@ Page({
       }
       if (res.code == 0) {
         wx.navigateBack({
-          url: '../center/center',
-        })
+          delta: 1,
+        });
+        Toast('简历已上传','none',1000);
       }
     })
     wx.hideLoading();
@@ -211,7 +211,13 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
+    if (!getApp().globalData.isShow){
+      wx.navigateBack({
+        delta: 1,
+      })
+    }
     // return;
+    getApp().globalData.isRefresh = false; //返回任意页面不刷新
     wx.showLoading({
       title: 'loading...',
       mask: true,
@@ -235,10 +241,10 @@ Page({
       if (res.code == 0) {
         this.setData({
           name: res.data.name,
-          sex: res.data.Sex,
+          Sex: res.data.Sex,
           age: res.data.age,
-          work: res.data.Job,
-          edu: res.data.Edu,
+          Job: res.data.Job,
+          Edu: res.data.Edu,
           tel: res.data.tel,
           email: res.data.email,
           qq: res.data.qq == '-1' ? '' : res.data.qq,

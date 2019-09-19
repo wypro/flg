@@ -1,11 +1,12 @@
 // pages/components/position/position.js
 Component({
   data:{
-
+    
   },
   properties:{
     item:Object
-  },/**
+  },
+  /**
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {

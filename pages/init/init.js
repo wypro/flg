@@ -1,4 +1,5 @@
 //init.js
+const faceUrl = require('../public/common/faceUrl');
 const util = require('../../utils/util.js');
 const app = getApp();
 
@@ -8,6 +9,7 @@ Page({
   },
   //页面加载事件
   onLoad: function () {
+    
     setTimeout(function () {
       wx.showLoading({
         title: '请稍等...',
@@ -20,7 +22,30 @@ Page({
         wx.hideLoading();
       }
     }, 1000)//等待程序初始化
-    
+    // 登录
+    wx.login({
+      success: res => {
+        // 发送 res.code 到后台换取 openId, sessionKey, unionId
+        if (res.code) {
+          //发起网络请求
+          wx.request({
+            url: faceUrl.path + faceUrl.getwxid,
+            method: 'POST',
+            data: {
+              code: res.code,
+              wxappid: wx.getAccountInfoSync().miniProgram.appId,
+            },
+            success: function (res) {
+              console.log(res.data);
+              app.globalData.wxid = res.data.data.openid;
+              app.globalData.sessionid = res.data.data.session_key;
+            },
+          })
+        } else {
+          console.log('登录失败！' + res.errMsg)
+        }
+      }
+    });//login end
   },
   //页面渲染事件
   onShow: function(){

@@ -1,4 +1,7 @@
 <!--pages/detail/detail.wxml-->
+<view wx:if="{{isBtnLogin?false:true}}">
+  <component-Module isRefresh="{{false}}"/>
+</view>
 <view class='detail'>
 <!-- 职位详情 -->
   <view class='position-details'>
@@ -109,8 +112,7 @@
     <view class='sending-box' bindtap="Loading">
       <view class='resume-about'>分享</view>
       <view class='resume-about'>收藏</view>
-      <view class='resume'>投递简历</view>
+      <view class='resume' bindtap="submitResume">投递简历</view>
     </view>
-    
   </view>
 </view>

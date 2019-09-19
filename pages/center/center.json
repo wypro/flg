@@ -1,5 +1,8 @@
 {
-  "usingComponents": {},
+  "component": true,
+  "usingComponents": {
+    "component-Module": "../components/loginModule/loginModule"
+  },
   "navigationBarBackgroundColor": "#ffffff",
   "navigationBarTextStyle": "black",
   "navigationBarTitleText": "我的",
