@@ -21,6 +21,7 @@
         wx:for="{{positionList}}" 
         wx-item="{{item}}"
         item="{{item}}"
+        isTd="{{false}}"
         wx:key="{{item.jobsID}}"
         data-condition="{{item.positionID}}"
         data-jobsID="{{item.jobsID}}"

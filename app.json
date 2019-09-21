@@ -17,7 +17,8 @@
     "pages/components/city/city",
     "pages/components/similarPositions/similarPositions",
     "pages/logs/logs",
-    "pages/components/post/post"
+    "pages/components/post/post",
+    "pages/deliveryRecord/deliveryRecord"
   ],
   "window": {
     "backgroundTextStyle": "light",

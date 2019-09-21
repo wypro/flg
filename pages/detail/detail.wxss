@@ -194,7 +194,7 @@
   position: fixed;
   left: 0;
   bottom: 0;
-  z-index: 999;
+  z-index: 3;
   background-color: rgba(255,255,255,1);
 }
 .sending-box{
@@ -215,6 +215,11 @@
 .resume{
   width: 60%;
   background-color: #2bc998;
+  color: #fff;
+}
+.resume1{
+  width: 60%;
+  background-color: #ccc;
   color: #fff;
 }
 .not-similar{

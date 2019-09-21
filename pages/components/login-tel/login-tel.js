@@ -75,19 +75,12 @@ Page({
          }
        }
     });*/
-    console.log(app.globalData.userInfo);
-    let data = {
-      userID: "1001",
-      userName: "程序测试员",
-      userImg: 'https://c-ssl.duitang.com/uploads/item/201809/26/20180926162125_vjbwi.jpg',
-      description: "这个人很懒什么都没有留下...",
-      // 'https://c-ssl.duitang.com/uploads/item/201809/26/20180926162125_vjbwi.jpg' 测试用美女图片
-    };
+    
     let obj = {
       path: faceUrl.path + faceUrl.register ,
       data:{
         tel: app.globalData.sendTel,
-        // wxid: app.globalData.wxid,
+        wxid: app.globalData.wxid,
       },
       
     }
@@ -101,7 +94,7 @@ Page({
           success: function (res) {
             if (res.confirm) {
               console.log('用户点击确定');
-              that.loginSuccess(data);
+              that.loginSuccess(returnValue);
             } else {
               console.log('用户点击取消');
             }
@@ -111,15 +104,23 @@ Page({
         Toast(res.msg, 'none', 2000);
         
       } else if (res.code == 0) {// 登录/注册成功
-        that.loginSuccess(data);
+        that.loginSuccess(res);
       } else {//出现意外情况
         Toast(res.msg, 'none', 2000);
       }
     });
     
   },
-  loginSuccess: function(data){
+  loginSuccess: function(res){
     let that = this;
+    console.log(res);
+    let data = {
+      userID: res.data.userID,
+      userName: "用户" + res.data.tel.substring(7, 11),
+      userImg: res.data.userImg,
+      description: res.data.description == null ? "这个人很懒什么都没有留下..." : res.data.description,
+      // 测试用图片 'https://c-ssl.duitang.com/uploads/item/201809/26/20180926162125_vjbwi.jpg'
+    };
     wx.setStorage({
       key: 'userinfo',
       data: JSON.stringify(data),
@@ -130,9 +131,10 @@ Page({
         app.globalData.sendTel = null;
         app.globalData.sendCode = null;
         app.globalData.cd = 0;
+        
         wx.switchTab({
           url: '/pages/index/index',
-        })
+        });
         Toast('登录成功', 'success', 1500);
       }
     });
@@ -188,8 +190,8 @@ Page({
         this.setData({
           dsq: setInterval(this.setCD, 1000),
         });
-        Toast(res.msg,'success',1000);
         wx.hideLoading();
+        Toast(res.msg,'success',1000);
         return;
       } else {//出现意外情况
         Toast(res.msg, 'none', 2000);

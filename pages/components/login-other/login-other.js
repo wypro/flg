@@ -32,44 +32,50 @@ Page({
   login:function(e){
     let that = this;
     if(!this.data.userName){
-      Toast('提示：账号信息不能为空','none',2000);
+      Toast('手机号码不能为空','none',2000);
       return;
     }
     if(!this.data.userPassWord){
-      Toast('提示：密码内容不能为空','none',2000);
+      Toast('密码内容不能为空','none',2000);
       return;
     }
 
     let obj = {
       path:faceUrl.path+faceUrl.login,
       data:{
-        userName:that.data.userName,
-        userPassWord:that.data.userPassWord
+        tel: that.data.userName,
+        userPassWord: that.data.userPassWord
       }
     }
 
     Request(obj,(res)=>{
       if(res.code == 1){
-        Toast("大批攻城师正在骑马赶来的路上",'none',2000);
+        Toast(res.msg,'none',2000);
         return;
       }
       if(res.code == 2){
         Toast("没有此用户，请注册",'none',2000);
         return;
       }
-      console.log(res.data[0].userImg);
+      
       if(res.code == 0){
+        let data = {
+          userID: res.data.userID,
+          userName: "用户" + res.data.tel.substring(7, 11),
+          userImg: res.data.userImg,
+          description: res.data.description == null ? "这个人很懒什么都没有留下..." : res.data.description,
+        };
         wx.setStorage({
           key: 'userinfo',
-          data: JSON.stringify(res.data[0]),
+          data: JSON.stringify(data),
           success:function(res){
+            
             wx.switchTab({
               url: '/pages/index/index'
             })
             getApp().globalData.isShow = true;
             getApp().globalData.isRefresh = true;//允许刷新
             Toast('登录成功', 'success', 1500);
-            // app.global.isShow = true;
           }
         })
       }

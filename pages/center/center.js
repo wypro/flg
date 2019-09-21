@@ -78,6 +78,11 @@ Page({
           url: '../resume/resume',
         })
         break;
+      case '1':
+        wx.navigateTo({
+          url: '../deliveryRecord/deliveryRecord',
+        })
+        break;
     }
     Toast('建设中...','none',1000);
   },

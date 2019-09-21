@@ -18,6 +18,7 @@ Page({
     jobsID: null,
     td: false,
     isBtnLogin: true,
+    isDeliver: true,
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
   },
 
@@ -57,7 +58,9 @@ Page({
         return;
       }
       if (res.code == 0) { //请求成功，并返回参数
+        // console.log(1);
         // console.log(res.data[0])
+        // console.log(1);
         wx.hideLoading();
         that.setData({
           detail: res.data[0],
@@ -98,11 +101,27 @@ Page({
             that.setData({
               similarInfo: res.data
             })
+          }
+        });//发起请求--相似职位 end
+        
+      }//请求成功 end
+      //判断是否投递过该职位
+      let getTd = {
+        path: faceUrl.path + faceUrl.delivererGetResume,
+        data: {
+          jobsID: that.data.jobsID,
+          wxid: app.globalData.wxid,
+          key: 'one'
+        }
       }
-    })
-      }
-
-    })
+      Request(getTd, (res) => {
+        if (res.code == -1) {
+          this.setData({
+            isDeliver: false,
+          });
+        }
+      });//判断是否投递过该职位 end
+    })//职位详情请求 end
   },
   positionDetail: function (event) {
     let condition = {
@@ -164,10 +183,6 @@ Page({
   },
   //投递简历
   submitResume:function(){
-    wx.showLoading({
-      title: 'loading...',
-      mask: true,
-    })
     console.log(app.globalData.isShow + "-" + this.data.isBtnLogin);
     if (!app.globalData.isShow) {
       this.setData({
@@ -175,10 +190,13 @@ Page({
       })
       this.setData({
         isBtnLogin: false
-      })
-      wx.hideLoading();
+      });
       return;
     }
+    wx.showLoading({
+      title: 'loading...',
+      mask: true,
+    })
     let obj = {
       path: faceUrl.path + faceUrl.getResume, 
       data: {
@@ -197,26 +215,29 @@ Page({
           success: function (res) {
             if (res.confirm) {
               console.log('用户点击确定');
-              
               let td = {
                 path: faceUrl.path + faceUrl.deliveryResume,
                 data: data
               }
-
               Request(td, (res) => {
                 if (res.code == 0) {
-                  
+                  that.setData({
+                    isDeliver: false,
+                  });
+                }
+                if (res.code == 1){
+                  Toast(res.msg,'none',1000);
                 }
               });
             } else {
               console.log('用户点击取消');
-              let td = {
+              let getTd = {
                 path: faceUrl.path + faceUrl.recruiterGetResume,
                 data: {
                   jobsID: that.data.jobsID,
                 }
               }
-              Request(td, (res) => {
+              Request(getTd, (res) => {
                 if (res.code == 0) {
                   
                 }
@@ -246,6 +267,21 @@ Page({
       }
     });
     
+  },
+  //收藏职位
+  collectionJobs: function(){
+    let obj = {
+      path: faceUrl.path + faceUrl.collectionJobs,
+      data: {
+        wxid: app.globalData.wxid,
+        job: this.data.detail
+      }
+    };
+    Request(obj,(res) => {
+      if (code == 0){
+
+      }
+    })
   },
   Loading: function(){
     let td = this.data.td;

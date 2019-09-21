@@ -39,18 +39,19 @@
   white-space: nowrap;
 }
 .company-name{
+  margin-top: 4px;
   font-size: .75rem;
   color: #ccc;
 }
 .docs{
   font-size: .72rem;
-  margin-top: 8px;
+  margin-top: 6px;
   color: #a9a9a9;
   display: flex;
 }
 .docs text{
   display: block;
-  margin: 0 2px;
+  margin: 0;
 }
 
 .position-item-right{
@@ -72,4 +73,17 @@
   font-size: .6rem;
   color: #ccc;
 }
-
+.position-deliver{
+  font-size: .6rem;
+  color: #2BC998;
+}
+.docs-deliver{
+  font-size: .72rem;
+  margin-top: 2px;
+  color: #a9a9a9;
+  display: flex;
+}
+.docs-deliver text{
+  display: block;
+  margin: 0;
+}

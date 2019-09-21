@@ -112,7 +112,8 @@
     <view class='sending-box'>
       <view class='resume-about' bindtap="Loading">分享</view>
       <view class='resume-about' bindtap="Loading">收藏</view>
-      <view class='resume' bindtap="submitResume">投递简历</view>
+      <view class='resume' bindtap="submitResume" wx:if="{{isDeliver}}">投递简历</view>
+      <view class='resume1' wx:if="{{!isDeliver}}">已投递</view>
     </view>
   </view>
 </view>

@@ -22,5 +22,5 @@
   </view>
   <view class='login' bindtap='login'>登录</view>
 
-  <view class='login-type' bindtap="togglelogin">手机号登录</view>
+  <!-- <view class='login-type' bindtap="togglelogin">手机号注册</view> -->
 </view>

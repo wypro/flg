@@ -9,12 +9,11 @@ Page({
   },
   //页面加载事件
   onLoad: function () {
-    
     setTimeout(function () {
       wx.showLoading({
         title: '请稍等...',
         mask: true,
-      })
+      })      
       // 登录
       wx.login({
         success: res => {
@@ -33,20 +32,23 @@ Page({
                 app.globalData.wxid = res.data.data.openid;
                 app.globalData.sessionid = res.data.data.session_key;
               },
+              fail: function(){
+
+              },
             })
           } else {
-            console.log('登录失败！' + res.errMsg)
+            console.log('登录失败！' + res.errMsg);
           }
         }
       });//login end
-      if (app.globalData.primarystart) {
-        wx.switchTab({
-          url: '../index/index',
-        })
-        wx.hideLoading();
-      }
+      wx.hideLoading();
     }, 1000)//等待程序初始化
-    
+    if (app.globalData.primarystart) {
+      wx.switchTab({
+        url: '../index/index',
+      })
+      wx.hideLoading();
+    }
   },
   //页面渲染事件
   onShow: function(){

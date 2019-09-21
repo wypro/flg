@@ -9,7 +9,8 @@ App({
       //  console.log(res.data)
        that.globalData.isShow = (res.data == '')?false:true;
      },
-   })
+   });
+
     // 获取用户信息
     wx.getSetting({
       success: res => {

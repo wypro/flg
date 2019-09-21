@@ -2,7 +2,8 @@
 <position>
   <view class='position-item'>
         <view class='company-logo'><image src='{{"//www.lgstatic.com/"+item.companyLogo}}'></image></view>
-        <view class='position-info'>
+        <!-- position-info -->
+        <view class='position-info' wx:if="{{!isTd}}">
           <view class='position-middle'>
             <view class='position-name'>{{item.positionName}}</view>
             <view class='company-name'>{{item.companyName}}</view>
@@ -18,6 +19,25 @@
             <text class='position-salary'>{{item.salary}}</text>
             <text class='position-time'>{{item.createTime}}</text>
           </view>
-        </view>
+        </view> 
+        <!-- position-info end -->
+        <!-- position-info2 -->
+        <view class='position-info' wx:if="{{isTd}}">
+          <view class='position-middle'>
+            <view class='position-name'>{{item.positionName}}</view>
+            <view class='company-name'></view>
+            <view class='docs-deliver'>
+                <text>{{item.city}} </text>
+                <!-- item.workExperience?item.workExperience: -->
+                <text>| {{item.companyName}}</text>
+            </view>
+            <text class='position-salary'>{{item.salary}}</text>
+          </view>
+          <view class='position-item-right'>
+            <text class='position-time'>{{item.createTime}}</text>
+            <text class='position-deliver'>[投递成功]</text>
+          </view>
+        </view> 
+        <!-- position-info2 end -->
       </view>
 </position>

@@ -1,0 +1,11 @@
+{
+  "component": true,
+  "usingComponents": {
+    "e-tabs": "../components/senior/tabs/tabs",
+    "component-position": "../components/position/position"
+  },
+  "navigationBarBackgroundColor": "#ffffff",
+  "navigationBarTextStyle": "black",
+  "navigationBarTitleText": "投递记录",
+  "backgroundTextStyle": "light"
+}

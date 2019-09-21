@@ -1,0 +1,23 @@
+<!--pages/deliveryRecord/deliveryRecord.wxml-->
+<view class="tabBars">
+  <e-tabs
+  items='{{ ["全部", "被查看", "邀面试", "不合适" ] }}'
+  selectColor='#2BC998'
+  textColor='black'
+  binditemtap="onItemTap"
+  theme='smallBar'/>
+</view>
+<!-- 标签页1 -->
+  <view class="position-list" wx:if="{{index==0}}">
+    <component-position
+        wx:for="{{positionList}}" 
+        wx-item="{{item}}"
+        item="{{item}}"
+        idTd="{{true}}"
+        wx:key="{{item.jobsID}}"
+        data-condition="{{item.positionID}}"
+        data-jobsID="{{item.jobsID}}"
+        bindtap='positionDetail'/>
+  </view>
+
+

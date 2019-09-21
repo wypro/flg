@@ -69,7 +69,7 @@ Page({
     if (this.data.isShow){//loding
       wx.showLoading({
         title: '加载中',
-      })
+      });
     }
     let that = this;
     this.setData({

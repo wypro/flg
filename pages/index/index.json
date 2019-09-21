@@ -2,7 +2,6 @@
   "component": true,
   "usingComponents": {
     "my-component": "../components/components-search/components-search",
-    "component-position":"../components/position/position",
-    "city":"../components/city/city"
+    "component-position":"../components/position/position"
   }
 }
