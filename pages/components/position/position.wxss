@@ -70,12 +70,13 @@
   color: red;
 }
 .position-time{
-  font-size: .6rem;
+  font-size: .75rem;
   color: #ccc;
 }
 .position-deliver{
-  font-size: .6rem;
+  font-size: 14px;
   color: #2BC998;
+  display: flex;
 }
 .docs-deliver{
   font-size: .72rem;
@@ -86,4 +87,23 @@
 .docs-deliver text{
   display: block;
   margin: 0;
+}
+.btnDelete{
+  padding: 4rpx 6rpx;
+  text-align: center;
+  flex: 1;
+  border-radius: 10%;
+  font-size: 25rpx;
+  color: #f4f4f4;
+  background-image: linear-gradient(to right, #f14141 0%, #f14141 100%);
+}
+.btnEdit{
+  padding: 4rpx 6rpx;
+  color: white;
+  flex: 1;
+  margin-left: 4rpx;
+  text-align: center;
+  border-radius: 10%;
+  font-size: 25rpx;
+  background-image: linear-gradient(to right, rgb(21, 110, 226) 30%, rgb(99, 22, 243) 100%);
 }

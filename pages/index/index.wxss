@@ -48,31 +48,4 @@
   border-top: .5rpx solid #a9a9a9;
 }
 
-/**post css**/
 
-.post-container{
-  position:fixed;
-  right:18rpx;
-  bottom:20rpx;
-  z-index:100;
-  width: 120prx;
-  height: 120prx;
-}
-
-.post-container .wall{
-  position: absolute;
-  z-index: 105;
-  width: 90rpx;
-  height: 90rpx;
-  border-radius: 45rpx;
-  background: white;
-  right: 10rpx;
-  bottom: 30rpx;
-}
-
-.post image{
-  width: 120rpx;
-  height: 120rpx;
-  position: relative;
-  z-index: 110;
-}

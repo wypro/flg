@@ -100,7 +100,7 @@
           wx:key="{{item.jobsID}}" />
     </view>
     <view class='not-similar' wx:if="{{similarInfo[0].positionName?false:true}}">暂无相似职位~~</view>
-    <view class="bottom-more"><button bindtap="Loading">查看更多相似职位</button></view>
+    <view class="bottom-more"><button bindtap="seeJob">查看更多相似职位</button></view>
   </view>
   
 <!-- 投递简历 -->
@@ -111,7 +111,7 @@
     </view> -->
     <view class='sending-box'>
       <view class='resume-about' bindtap="Loading">分享</view>
-      <view class='resume-about' bindtap="Loading">收藏</view>
+      <view class='resume-about' bindtap="collectionJobs">收藏</view>
       <view class='resume' bindtap="submitResume" wx:if="{{isDeliver}}">投递简历</view>
       <view class='resume1' wx:if="{{!isDeliver}}">已投递</view>
     </view>

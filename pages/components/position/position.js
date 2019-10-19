@@ -5,10 +5,13 @@ Component({
   },
   properties:{
     item:Object,
-    isTd:{
-      type:Boolean,
-      value:true
+    isType:{
+      type: String,
+      value: '0'
     },
+    //0 初始职位显示状态
+    //1 投递职位显示状态
+    //2 发布职位显示状态
   },
   /**
    * 页面上拉触底事件的处理函数

@@ -28,9 +28,13 @@ Page({
                 wxappid: wx.getAccountInfoSync().miniProgram.appId,
               },
               success: function (res) {
-                console.log(res.data);
-                app.globalData.wxid = res.data.data.openid;
-                app.globalData.sessionid = res.data.data.session_key;
+                if (res.data.code == 0){
+                  app.globalData.wxid = res.data.data.openid;
+                  app.globalData.sessionid = res.data.data.session_key;
+                } else if (res.data.code == 1){
+                  console.log(res.data.msg)
+                }
+                
               },
               fail: function(){
 
@@ -43,12 +47,12 @@ Page({
       });//login end
       wx.hideLoading();
     }, 1000)//等待程序初始化
-    if (app.globalData.primarystart) {
-      wx.switchTab({
-        url: '../index/index',
-      })
-      wx.hideLoading();
-    }
+    
+    wx.switchTab({
+      url: '../index/index',
+    });
+    wx.hideLoading();
+    
   },
   //页面渲染事件
   onShow: function(){

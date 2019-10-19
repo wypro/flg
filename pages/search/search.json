@@ -1,6 +1,7 @@
 {
   "usingComponents": {
-    "component-position": "../components/position/position"
+    "component-position": "../components/position/position",
+    "e-sidebar": "../components/senior/sidebar/sidebar"
   },
   "navigationBarBackgroundColor": "#ffffff",
   "navigationBarTextStyle": "black",

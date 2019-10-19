@@ -8,12 +8,12 @@
   theme='smallBar'/>
 </view>
 <!-- 标签页1 -->
-  <view class="position-list" wx:if="{{index==0}}">
+  <view class="position-list" wx:if="{{true}}">
     <component-position
-        wx:for="{{positionList}}" 
+        wx:for="{{dataList}}"
         wx-item="{{item}}"
         item="{{item}}"
-        idTd="{{true}}"
+        isType="1"
         wx:key="{{item.jobsID}}"
         data-condition="{{item.positionID}}"
         data-jobsID="{{item.jobsID}}"

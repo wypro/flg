@@ -11,9 +11,9 @@ Page({
    * 页面的初始数据
    */
   data: {
-    detail:null,
-    similar:null,
-    similarInfo:null,
+    detail: null,
+    similar: null,
+    similarInfo: null,
     positionID: null,
     jobsID: null,
     td: false,
@@ -107,11 +107,10 @@ Page({
       }//请求成功 end
       //判断是否投递过该职位
       let getTd = {
-        path: faceUrl.path + faceUrl.delivererGetResume,
+        path: faceUrl.path + faceUrl.isDelivery,
         data: {
           jobsID: that.data.jobsID,
           wxid: app.globalData.wxid,
-          key: 'one'
         }
       }
       Request(getTd, (res) => {
@@ -180,6 +179,13 @@ Page({
    */
   onShareAppMessage: function () {
 
+  },
+  //查询更多相似职位
+  seeJob:function(){
+    console.log(this.data.similar);
+    wx.navigateTo({
+      url: '../search/search?search=' + this.data.similar,
+    })
   },
   //投递简历
   submitResume:function(){
@@ -270,6 +276,40 @@ Page({
   },
   //收藏职位
   collectionJobs: function(){
+    let that = this;
+    let obj = {
+      path: faceUrl.path + faceUrl.getCollectionJobs,
+      data: {
+        wxid: app.globalData.wxid,
+      }
+    }
+    Request(obj, (res) => {
+      if (res.code == 0) {
+        if (res.data.length > 0 && JSON.stringify(res.data).indexOf(this.data.jobsID)!=-1){//获取数据json串，判断其中有无当前职位id
+          wx.showModal({
+            title: '该职位已收藏',
+            content: '是否取消收藏？',
+            success: function (res) {
+              if (res.confirm) {
+                console.log('用户点击确定');
+                that.collection();
+              } else {
+                console.log('用户点击取消');
+                return;
+              }
+            }
+          });
+        } else {//没有收藏
+          that.collection();
+        }
+      }
+      if (res.code == 1) {//参数非法
+        Toast(res.msg, 'none', 1000);
+      }
+    });
+    
+  },
+  collection: function(){//执行（收藏/取消收藏）职位方法
     let obj = {
       path: faceUrl.path + faceUrl.collectionJobs,
       data: {
@@ -277,19 +317,14 @@ Page({
         job: this.data.detail
       }
     };
-    Request(obj,(res) => {
-      if (code == 0){
-
+    Request(obj, (res) => {
+      if (res.code == 0) {
+        Toast(res.msg, 'none', 1000);
       }
-    })
+    });
   },
   Loading: function(){
-    let td = this.data.td;
-
-    this.setData({
-      td: !td,
-    });
-    
+       
     Toast("Building...","none",2000);
   }
 })

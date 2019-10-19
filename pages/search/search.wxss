@@ -210,6 +210,33 @@ page{
   line-height: 25px;
 }
 
+.px-view{
+  display: flex;
+  position: relative;
+  margin: 0 auto;
+}
+.zn{
+  width: 47.5%;
+  height: 30px;
+  margin: 15px 4px;
+  border: 1rpx solid #ECECEC;
+  background-color: #2BC998;
+  font-size: .85rem;
+  color: white;
+  text-align: center;
+  line-height: 30px;
+}
+.sj{
+  width: 47.5%;
+  height: 30px;
+  margin: 15px 4px;
+  border: 1rpx solid #ECECEC;
+  font-size: .85rem;
+  color: #333;
+  text-align: center;
+  line-height: 30px;
+}
+
 .sort-ok{
   width: 90%;
   height: 50px;
@@ -223,8 +250,8 @@ page{
 .mask{
   height: 100%;
   width: 100%;
-  top: 20%;
+  top: 19%;
   position: fixed;
   overflow: hidden;
-  background-color: gainsboro;
+  background-color: rgba(0,0,0,0.3);
 }

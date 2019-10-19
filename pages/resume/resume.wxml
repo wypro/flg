@@ -1,11 +1,11 @@
 <!--pages/resume/resume.wxml-->
 <form class="">
-  <view class="chooseImage" bindtap="chooseImage">
+  <view class="chooseImage">
     <view class="modify-logo"></view>
-    <view class='logo'>
+    <view class='logo' bindtap="previewImage">
       <image src="{{ images!=null ? images : '../public/images/icon/user.png' }}" mode="aspectFill"></image>
     </view>
-    <view class="modify-logo">修改头像</view>
+    <view class="modify-logo" bindtap="chooseImage">修改头像</view>
   </view>
   <view class="ms">
     <view>基本信息（必填）</view>

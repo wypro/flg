@@ -20,7 +20,7 @@ Page({
       }, {
         txt: '意见反馈',
         img: '../public/images/icon/fankui.png'
-    }],
+      }],
     isBtnLogin: true,
     isUser: false,
     userInfo: null,
@@ -41,7 +41,7 @@ Page({
   //退出登录
   loginOut:function(e){
     let that = this;
-    
+    app.globalData.userInfo = {}
     wx.setStorage({
       key: 'userinfo',
       data: '',
@@ -54,12 +54,24 @@ Page({
         getApp().globalData.isRefresh = true;
         wx.switchTab({
           url: '/pages/index/index'
-        })
+        });
       }
     })
   },
   toggleRole: function(){
-    Toast('正在开发中...','none',1500);
+    if (!app.globalData.isShow) {
+      this.setData({
+        isBtnLogin: true
+      })
+      this.setData({
+        isBtnLogin: false
+      })
+      console.log("56465")
+      return;
+    }
+    wx.reLaunch({
+      url: '../deliverer/deliverer',
+    })
   },
   togglePage: function(e){
     // console.log(e);
@@ -83,8 +95,21 @@ Page({
           url: '../deliveryRecord/deliveryRecord',
         })
         break;
+      case '2':
+        wx.navigateTo({
+          url: '../center/collection/collection',
+        })
+        break;   
+      case '3':
+        wx.navigateTo({
+          url: '../center/feedback/feedback',
+        })
+        break;      
+      default:
+        Toast('建设中...', 'none', 1000);
+        break;
     }
-    Toast('建设中...','none',1000);
+    
   },
   /**
    * 生命周期函数--监听页面加载
@@ -114,7 +139,7 @@ Page({
         that.setData({
           isUser: (res.data == '') ? false : true,
           userInfo: info
-        })
+        });
       }
     })
   },

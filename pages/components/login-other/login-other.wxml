@@ -17,7 +17,7 @@
           data-type='2'
           bindinput='changeLoginInfo'
           placeholder-class='input-color' 
-          placeholder='请输入密码'></input>
+          placeholder='默认密码为123456'></input>
       </view>
   </view>
   <view class='login' bindtap='login'>登录</view>

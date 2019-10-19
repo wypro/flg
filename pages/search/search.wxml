@@ -60,10 +60,11 @@
   <!-- 搜索后返回的数据 -->
   <view class='on-search' wx:if="{{searchList?true:false}}">
        <view class='search-sort-box'>
-        <view
-        bindtouchstart='showCondition'
-        data-type="1"
-        class='search-sort-btn'>位置<image src='../public/images/icon/back.png'></image></view>
+        <view class='search-sort-btn'>
+          <picker bindchange="bindPickerChange" mode='region'>
+            位置<image src='../public/images/icon/back.png'></image>
+          </picker>   
+        </view>
         <view 
         bindtouchstart='showCondition'
         data-type="2"
@@ -79,7 +80,7 @@
       </view>
       <!-- 职位 -->
       <view class='search-nav'>
-        <view class="mask" hidden="{{!maskFlag}}"></view>
+  
         <view class='search-nav-box'>
           <view class='{{(conditionType == 2)?"show-position":"hidde-position"}}'>
             <scroll-view class='scroll-view' scroll-y style="height: 350px;">
@@ -141,14 +142,37 @@
             </scroll-view>
             <view class='sort-ok'>确定</view>
            </view>
+           <view class='{{(conditionType == 3)?"show-position":"hidde-position"}}'>
+              <scroll-view class='scroll-view' scroll-y style="height: 350px;">
+                <view class='show-position-item'>
+                    <view class='show-position-title'>行业领域</view>
+                    <view class='show-position-list'>
+                        <view 
+                          wx-item="{{item}}"
+                          wx:key="{{item}}"
+                          data-item="{{item}}"
+                          bindtouchstart='getIndustry'
+                          wx:for="{{industry}}">{{item}}</view>
+                    </view>
+                </view>
+              </scroll-view>
+            <view class='sort-ok'>确定</view>
+           </view>
+           <view class='{{(conditionType == 4)?"show-position":"hidde-position"}}'>
+              <view class='px-view' scroll-y style="height: 60px;">
+                <view class="zn">智能排序</view>
+                <view class="sj">时间排序</view>
+              </view>
+           </view>
         </view>
-        
+        <view class="mask" hidden="{{!maskFlag}}"></view>
       </view>
     
     <component-position
         wx:for="{{searchList}}" 
         wx-item="{{item}}"
         item="{{item}}"
+        isType="0"
         wx:key="{{item.jobsID}}"
         data-condition="{{item.positionID}}"
         data-jobsID="{{item.jobsID}}"

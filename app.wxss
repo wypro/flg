@@ -1,13 +1,10 @@
 /**app.wxss**/
+
 .container {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  padding: 200rpx 0;
   box-sizing: border-box;
-} 
+  background-color: #f4f4f4;
+  font-family: PingFangSC-Light, helvetica, 'Heiti SC';
+}
 
 .tips-loading{
   height: 50px;
@@ -15,4 +12,16 @@
   line-height: 50px;
   font-size: .87rem;
   color: #9e9e9e;
+}
+
+view, image, text, navigator {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+view, text {
+  font-family: PingFangSC-Light, helvetica, 'Heiti SC';
+  font-size: 29rpx;
+  color: #333;
 }

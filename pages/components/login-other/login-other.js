@@ -12,8 +12,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-        userName:null,
-        userPassWord:null
+        userName: null,
+        userPassWord: null
   },
   //改变登录信息状态
   changeLoginInfo:function(e){

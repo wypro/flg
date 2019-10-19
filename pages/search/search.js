@@ -22,6 +22,7 @@ Page({
     workExp: ['应届毕业生', '3年及以下', '3-5年', '5-10年', '10年以上'],
     edution:['大专','本科','硕士','博士'],
     nature:['全职','兼职','实习'],
+    industry: ['不限','移动互联网','通讯','服装','餐饮','电商','金融','企业服务'],
     search: null,
     searchList:null,
     conditionType: null,
@@ -60,8 +61,8 @@ Page({
   },
   getSearchList: function(e){
     let that = this;
-    let type = e.target.dataset.type || e.currentTarget.dataset.type;
-    
+    let type = e || e.target.dataset.type || e.currentTarget.dataset.type;
+    console.log(e)
     if(type == 1){  //执行搜索职位操作
         if (!this.data.search) {
           Toast("搜索条件不能为空", 'none', 3000)
@@ -233,8 +234,16 @@ Page({
       }
     });
   },
-  onShow:function(){
+  onShow: function (){
     getApp().globalData.isRefresh = false;
+  },
+  onLoad: function (options) { 
+    if (options.search != null) {
+      this.setData({
+        search: options.search
+      })
+      this.getSearchList(1);
+    }
   },
   // 默认阻止滚动
   stopScroll() {
@@ -247,7 +256,6 @@ Page({
     
     this.setData({
       gender: city.substring(0, city.length-1),
-      genderValue: e.detail.value
     })
   },
 })

@@ -3,12 +3,12 @@
   <view class='position-item'>
         <view class='company-logo'><image src='{{"//www.lgstatic.com/"+item.companyLogo}}'></image></view>
         <!-- position-info -->
-        <view class='position-info' wx:if="{{!isTd}}">
+        <view class='position-info' wx:if="{{isType=='0'}}">
           <view class='position-middle'>
             <view class='position-name'>{{item.positionName}}</view>
             <view class='company-name'>{{item.companyName}}</view>
             <view class='docs'>
-                <text>{{item.city}} </text>
+                <text>{{item.city }} </text>
                 <!-- item.workExperience?item.workExperience: -->
                 <text>| {{"1-3年"}} |</text>
                 <!-- item.education -->
@@ -22,22 +22,28 @@
         </view> 
         <!-- position-info end -->
         <!-- position-info2 -->
-        <view class='position-info' wx:if="{{isTd}}">
+        <view class='position-info' wx:if="{{isType=='1' || isType=='2'}}">
           <view class='position-middle'>
             <view class='position-name'>{{item.positionName}}</view>
             <view class='company-name'></view>
             <view class='docs-deliver'>
-                <text>{{item.city}} </text>
+                <text>{{item.city}}</text>
                 <!-- item.workExperience?item.workExperience: -->
-                <text>| {{item.companyName}}</text>
+                <text> | {{item.companyName}}</text>
             </view>
             <text class='position-salary'>{{item.salary}}</text>
           </view>
           <view class='position-item-right'>
-            <text class='position-time'>{{item.createTime}}</text>
-            <text class='position-deliver'>[投递成功]</text>
+            <text class='position-time'>{{item.deliveryDate || item.createTime}}</text>
+            <text class='position-deliver' wx:if="{{isType=='1'}}">
+              [{{item.state==0 ? "投递成功" : (item.state==1 ? "被查看" : (item.state==2 ? "邀面试" : "不合适"))}}]
+            </text>
+            <view class='position-deliver' wx:if="{{isType=='2'}}">
+              <view class="btnDelete">删除</view>
+              <view class="btnEdit">编辑</view>
+            </view>
           </view>
-        </view> 
+        </view>
         <!-- position-info2 end -->
       </view>
 </position>

@@ -1,4 +1,9 @@
 /* pages/deliveryRecord/deliveryRecord.wxss */
+view{
+  box-sizing: unset;
+  padding: 0;
+  margin: 0;
+}
 .tabBars{
   border-bottom: solid 1px #ccc;
 }

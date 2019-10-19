@@ -45,7 +45,6 @@ App({
     isBtnLogin: true,//控制登录窗口
     isShow: false,
     primarystart: false,//初始化完成唯一标识 
-    canIUse: wx.canIUse('button.open-type.getUserInfo'),
   }, 
   
 })

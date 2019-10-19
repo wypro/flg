@@ -4,6 +4,9 @@ const faceUrl = require('../public/common/faceUrl');
 const { Toast, Loading } = require("../public/common/Toast");
 const { Request } = require("../../utils/request.js");
 
+let app = getApp();
+
+
 Page({
 
   /**
@@ -23,6 +26,10 @@ Page({
     email: null,
     qq: null,
     wx: null,
+    files: [],
+    hasPicture: false,
+    picUrls: [],
+    userInfo: {},
   },
   //绑定选择框
   bindPickerChange: function(e) {
@@ -47,7 +54,21 @@ Page({
         break;
     }
   },
+  previewImage: function (e) {
+    if (this.data.files.length <= 0){
+      Toast('未选择图片！','none',1000)
+      return;
+    }
+    wx.previewImage({
+      current: e.currentTarget.id, // 当前显示图片的http链接
+      urls: this.data.files // 需要预览的图片http链接列表
+    })
+  },
   chooseImage: function(e) {
+    if (this.data.userInfo.avatarUrl != null){
+      Toast('微信头像不可修改！','none',1000)
+      return;
+    }
     wx.chooseImage({
       sizeType: ['original', 'compressed'], //可选择原图或压缩后的图片
       sourceType: ['album', 'camera'], //可选择性开放访问相册、相机
@@ -55,13 +76,64 @@ Page({
       success: res => {
         this.setData({
           images: res.tempFilePaths[0],
+          files: res.tempFilePaths
         });
-        wx.showToast({
-          title: '上传头像功能暂时无法实现...',
-          icon: 'none',
-        })
+        this.upload(res);
       }
     })
+  },
+  upload: function (res) {//上传文件
+    wx.showLoading({
+      title: '上传中....',
+      mask: true,
+    })
+    var that = this;
+    const uploadTask = wx.uploadFile({
+      url: faceUrl.path + faceUrl.uploadimages,
+      filePath: res.tempFilePaths[0],
+      name: 'file',
+      formData: {
+        wxid: getApp().globalData.wxid,
+        sign: "avatal",
+      },
+      success: function (res) {
+        let data = JSON.parse(res.data)
+        if (data.code == 0) {
+          var url = data.data.url
+          that.data.picUrls.push(url)
+          that.setData({
+            hasPicture: true,
+            picUrls: that.data.picUrls
+          })
+          let obj = that.data.userInfo;
+          obj.userImg = url;
+          console.log("上传成功")
+          console.log(data)
+          wx.setStorage({
+            key: 'userinfo',
+            data: JSON.stringify(obj),
+            success: function (res) {
+              Toast('头像已更新','success',)
+              wx.hideLoading()
+            }
+          });
+        }
+      },
+      fail: function (e) {
+        wx.showModal({
+          title: '错误',
+          content: '上传失败',
+          showCancel: false
+        })
+      },
+    })
+    
+    uploadTask.onProgressUpdate((res) => {
+      console.log('上传进度', res.progress)
+      console.log('已经上传的数据长度', res.totalBytesSent)
+      console.log('预期需要上传的数据总长度', res.totalBytesExpectedToSend)
+    })
+
   },
   //提交表单
   submitForm: function() {
@@ -69,30 +141,30 @@ Page({
       title: 'Loading',
       mask: true,
     })
-    // let form = {
-    //   wxid: getApp().globalData.wxid,
-    //   name: this.data.name,
-    //   Sex: this.data.Sex,
-    //   age: this.data.age,
-    //   Job: this.data.Job,
-    //   Edu: this.data.Edu,
-    //   tel: this.data.tel,
-    //   email: this.data.email,
-    //   qq: this.data.qq == null || this.data.qq == "" ? '-1' : this.data.qq  ,
-    //   wx: this.data.wx == null || this.data.wx == "" ? '-1' : this.data.wx ,
-    // }
     let form = {
       wxid: getApp().globalData.wxid,
-      name: '王勇',
-      Sex: '男',
-      age: '18',
-      Job: '上班族',
-      Edu: '博士',
-      tel: '15173266049',
-      email: '1214742155@qq.com',
-      qq: '1214742155',
-      wx: 'wy1214742155',
+      name: this.data.name,
+      Sex: this.data.Sex,
+      age: this.data.age,
+      Job: this.data.Job,
+      Edu: this.data.Edu,
+      tel: this.data.tel,
+      email: this.data.email,
+      qq: this.data.qq == null || this.data.qq == "" ? '-1' : this.data.qq  ,
+      wx: this.data.wx == null || this.data.wx == "" ? '-1' : this.data.wx ,
     }
+    // let form = {
+    //   wxid: getApp().globalData.wxid,
+    //   name: '王勇',
+    //   Sex: '男',
+    //   age: '18',
+    //   Job: '上班族',
+    //   Edu: '博士',
+    //   tel: '15173266049',
+    //   email: '1214742155@qq.com',
+    //   qq: '1214742155',
+    //   wx: 'wy1214742155',
+    // }
     // console.log(form);
     for (var item in form) {
       if (item == 'qq' || item == 'wx') {
@@ -196,45 +268,42 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function(options) {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function() {
-    if (!getApp().globalData.isShow){
-      wx.navigateBack({
-        delta: 1,
-      })
-    }
-    // return;
-    getApp().globalData.isRefresh = false; //返回任意页面不刷新
+  onLoad: function(options) { 
     wx.showLoading({
       title: 'loading...',
       mask: true,
     });
+    let that = this;
+    wx.getStorage({
+      key: 'userinfo',
+      success: function (res) {
+        // console.log(res.data,'ross')
+        let info = (res.data == '') ? null : JSON.parse(res.data)
+        that.setData({
+          images: info.userImg || app.globalData.userInfo.avatarUrl,
+          userInfo: info,
+          files: that.data.files.concat(info.userImg),
+        })//设置初始头像
+        that.setData({
+          userInfo: info
+        });
+      }
+    })
+    
+    
+    
     let obj = {
       path: faceUrl.path + faceUrl.getResume,
       data: {
         wxid: getApp().globalData.wxid
-      } 
+      }
     }
 
-    Request(obj ,(res) => {
-      if (res.code == -1){
-        wx.hideLoading();
+    Request(obj, (res) => {
+      if (res.code == -1) {
+        
       }
       if (res.code == 1) {
-        wx.hideLoading();
         Toast("获取失败！", 'none', 2000);
         return;
       }
@@ -250,9 +319,29 @@ Page({
           qq: res.data.qq == '-1' ? '' : res.data.qq,
           wx: res.data.wx == '-1' ? '' : res.data.wx,
         });
-        wx.hideLoading();
       }
+      wx.hideLoading();
     })
+  },
+
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady: function() {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function() {
+    if (!app.globalData.isShow){
+      wx.navigateBack({
+        delta: 1,
+      })
+    }
+    // return;
+    app.globalData.isRefresh = false; //返回任意页面不刷新
   },
 
   /**

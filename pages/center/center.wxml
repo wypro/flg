@@ -37,15 +37,16 @@
       wx-item="{{item}}"
       wx:key="{item.txt}}"
       id="{{index}}"
-      bindtap="togglePage">
-        <view>
+      bindtap="togglePage"> 
+        <view> 
           <view>
-          <image class='center-img' src='{{item.img}}'></image>
-          <text class='center-txt'>{{item.txt}}</text>
-        </view>
+            <image class='center-img' src='{{item.img}}'></image>
+            <text class='center-txt'>{{item.txt}}</text>
+          </view>
         <image class='center-icon' src='../public/images/icon/rightback.png'></image>
         </view>
-    </view> 
+    </view>
+    
   </view>
 
   <view class='change-recruit' bindtap="toggleRole">切换至我要招人</view>

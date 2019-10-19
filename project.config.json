@@ -22,7 +22,7 @@
 		"nodeModules": true
 	},
 	"compileType": "miniprogram",
-	"libVersion": "2.8.2",
+	"libVersion": "2.8.3",
 	"appid": "wx9f110984ae45ceb2",
 	"projectname": "lagou",
 	"debugOptions": {

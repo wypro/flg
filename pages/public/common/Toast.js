@@ -1,8 +1,8 @@
 export function Toast(title,type,time){
   wx.showToast({
     title: title,
-    icon: type,
-    duration: time
+    icon: type == null ? 'none' : type,
+    duration: time == null ? 1000 : time
   })
 }
 

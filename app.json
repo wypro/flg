@@ -1,10 +1,12 @@
 {
   "pages": [
-    
+    "pages/deliverer/company-jobs/Release-jobs/Release-jobs",
     "pages/init/init",
     "pages/index/index",
     "pages/tips/tips",
     "pages/center/center",
+    "pages/center/collection/collection",
+    "pages/center/feedback/feedback",
     "pages/resume/resume",
     "pages/search/search",
     "pages/detail/detail",
@@ -17,8 +19,11 @@
     "pages/components/city/city",
     "pages/components/similarPositions/similarPositions",
     "pages/logs/logs",
-    "pages/components/post/post",
-    "pages/deliveryRecord/deliveryRecord"
+    "pages/deliveryRecord/deliveryRecord",
+    "pages/deliverer/deliverer",
+    "pages/deliverer/company-info/company-info",
+    "pages/deliverer/company-jobs/company-jobs"
+    
   ],
   "window": {
     "backgroundTextStyle": "light",

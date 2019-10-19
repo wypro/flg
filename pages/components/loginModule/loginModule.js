@@ -1,6 +1,8 @@
 // pages/components/loginModule/loginModule.js
   const app = getApp();
+  const faceUrl = require('../../public/common/faceUrl.js');
   const { Toast } = require('../../public/common/Toast.js');
+  const { Request } = require('../../../utils/request.js');
 Component({
 
   /**
@@ -49,17 +51,18 @@ Component({
       wx.setStorage({
         key: 'userinfo',
         data: JSON.stringify({
+          avatarUrl: true,
           userName: app.globalData.userInfo.nickName,
           userImg: app.globalData.userInfo.avatarUrl,
         }),
         success: function (res) {
-          console.log(that.data.isRefresh+"123456");
+          
           if (that.data.isRefresh){
             wx.switchTab({
               url: '/pages/index/index'
             });
           }
-           
+          that.wxlogin()
           getApp().globalData.isShow = true;
           getApp().globalData.isRefresh = true;
           Toast('登录成功', 'success', 1500);
@@ -68,6 +71,27 @@ Component({
       this.setData({
         isBtnLogin: true
       })
+    },
+    wxlogin: function(){
+      let obj = {
+        path: faceUrl.path + faceUrl.login,
+        data: {
+          wxid: app.globalData.wxid,
+        },
+      }
+      // 登录/注册
+      Request(obj, (res) => {
+        if (res.code == -1) {
+          
+        } else if (res.code == 1) {
+          Toast(res.msg, 'none', 2000);
+
+        } else if (res.code == 0) {// 登录/注册成功
+
+        } else {//出现意外情况
+          Toast(res.msg, 'none', 2000);
+        }
+      });
     },
     /**
      * 自定义事件
