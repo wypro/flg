@@ -1,0 +1,14 @@
+<!--component/senior/modal/modal.wxml-->
+<position>
+    <view class='mask'>
+      <view class="progress-box">
+          <progress class="progress" 
+                    percent="{{100}}" 
+                    border-radius="2" 
+                    show-info="{{true}}" 
+                    active="{{true}}" 
+                    active-mode="forwards">
+          </progress>
+      </view>
+    </view>
+</position>

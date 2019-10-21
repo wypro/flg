@@ -1,0 +1,9 @@
+{
+  "component": true,
+  "usingComponents": {
+    "component-position": "../../components/position/position"
+  },
+  "navigationBarTitleText": "职位收藏",
+  "navigationBarBackgroundColor": "#ffffff",
+  "navigationBarTextStyle": "black"
+}

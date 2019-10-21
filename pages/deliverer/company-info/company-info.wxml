@@ -1,0 +1,65 @@
+<!--pages/resume/resume.wxml-->
+<form class="">
+  <view class="chooseImage" bindtap="chooseImage">
+    <view class="modify-logo"></view>
+    <view class='logo'>
+      <image src="{{ images }}" mode="aspectFill"></image>
+    </view>
+    <view class="modify-logo">修改logo</view>
+  </view>
+  <view class="ms">
+    <view>基本信息（必填）</view>
+  </view>
+  <view class="info">
+    <view>
+      <view>公司全称</view>
+      <input type="text" value='{{companyFullName}}' data-type="1" bindinput='changeLoginInfo' placeholder="输入全称"></input>
+    </view>
+    <view>
+      <view>公司简称</view>
+      <input type="text" value='{{companyName}}' data-type="2" bindinput='changeLoginInfo' placeholder="输入简称"></input>
+    </view>
+    <view>
+      <view>所在地址</view>
+      <label>
+        <picker bindchange="bindPickerChange" id="companyAdress" mode='region'>
+            <label class="picker">{{companyAdress ? companyAdress : ''}}</label>
+            <image class='center-icon' src='../../public/images/icon/rightback.png'></image>
+        </picker>
+      </label>
+    </view>
+    <view>
+      <view>公司类别</view>
+      <label>
+        <picker bindchange="bindPickerChange" id="type" range="{{arraytype}}">
+            <label class="piker">{{ type ? type : '' }}</label>  
+            <image class='center-icon' src='../../public/images/icon/rightback.png'></image>
+        </picker>
+      </label>
+    </view>
+    <view>
+      <view>法人联系电话</view>
+      <input type="text" value='{{tel}}' data-type="3" bindinput='changeLoginInfo' placeholder="输入电话"></input>
+    </view>
+    <view>
+      <view>公司邮箱</view>
+      <input type="text" value='{{email}}' data-type="4" bindinput='changeLoginInfo' placeholder="输入邮箱"></input>
+    </view>
+  </view>
+  <!-- 选填信息 -->
+  <view class="ms">
+    <view>选填信息</view>
+  </view>
+  <view class="info">
+    <view>
+      <view>公司联系人QQ</view>
+      <input type="text" value='{{qq}}' data-type="5" bindinput='changeLoginInfo' placeholder="输入Q Q"></input>
+    </view>
+    <view>
+      <view>公司联系人微信</view>
+      <input type="text" value='{{wx}}' data-type="6" bindinput='changeLoginInfo' placeholder="输入微信"></input>
+    </view>
+  </view>
+  <!-- 提交 -->
+  <button class="btn" bindtap="submitForm">完成</button>
+</form>

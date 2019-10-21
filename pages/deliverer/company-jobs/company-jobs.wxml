@@ -1,0 +1,21 @@
+<!--pages/deliverer/company-jobs/company-jobs.wxml-->
+<view class='position-list'>
+      <component-position
+        wx:for="{{positionList}}" 
+        wx-item="{{item}}"
+        item="{{item}}"
+        isType="2"
+        wx:key="{{item.jobsID}}"
+        data-condition="{{item.positionID}}"
+        data-jobsID="{{item.jobsID}}"
+        bindtap='positionDetail'/>
+</view>
+<view wx:if="{{positionList==null || positionList.length<=0}}" class="no-data">暂时没有数据~~</view>
+
+    <!-- 发布的按钮 -->
+    <view class='post-container' wx:if='{{true}}'>
+        <view class='wall'></view>
+        <view class='post'>
+            <image src='../../public/images/post.png' data-page='./Release-jobs/Release-jobs' bindtap='Release'></image>
+        </view>
+    </view>

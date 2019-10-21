@@ -1,0 +1,79 @@
+<!--pages/deliverer/company-jobs/Release-jobs/Release-jobs.wxml-->
+<form class="">
+  <view class="ms">
+    <view>基本信息</view>
+  </view>
+  <view class="info">
+    <view>
+      <view>职位名称</view>
+      <input type="text" value='{{positionName}}' data-type="1" bindinput='changeLoginInfo' placeholder="输入名称"></input>
+    </view>
+    <view>
+      <view>学历</view>
+      <label>
+        <picker bindchange="bindPickerChange" id="edu" range="{{arrayEdu}}">
+            <label class="piker">{{ edu ? edu : '' }}</label>  
+            <image class='center-icon' src='../../../public/images/icon/rightback.png'></image>  
+        </picker>
+      </label>
+    </view>
+    <view>
+      <view>薪资</view>
+      <label>
+        <picker bindchange="bindPickerChange" bindcolumnchange="bindMultiPickerColumnChange" id="salary" value="{{select}}" range="{{arraySalary}}" mode="multiSelector">
+            <label class="piker">{{salary ? salary : ''}}</label>
+            <image class='center-icon' src='../../../public/images/icon/rightback.png'></image>
+        </picker>
+      </label>
+    </view>
+    <view>
+      <view>工作经验</view>
+      <label>
+        <picker bindchange="bindPickerChange" bindcolumnchange="bindMultiPickerColumnChange" id="exp" value="{{select}}" range="{{arrayExp}}" mode="multiSelector">
+            <label class="piker">{{ workExperience ? workExperience : '' }}</label>  
+            <image class='center-icon' src='../../../public/images/icon/rightback.png'></image>
+        </picker>
+      </label>
+    </view>
+  </view>
+  <!-- 职位描述 -->
+  <view class="ms">
+    <view>职位描述</view>
+  </view>
+  <view class="info">
+    <view bindtap="popup">
+      <view>职位描述</view>
+      <label>
+        <image class='center-icon' src='../../../public/images/icon/rightback.png'></image>
+      </label>
+    </view>
+    <view wx:if="{{areaValue!=null}}" bindtap="popup">
+      <text class="company-content">{{areaValue}}</text>
+    </view>
+    <view bindtap="popup">
+      <view>任职要求</view>
+      <label>
+        <image class='center-icon' src='../../../public/images/icon/rightback.png'></image>
+      </label>
+    </view>
+    <view wx:if="{{areaValue!=null}}">
+      <text class="company-content">{{areaValue}}</text>
+      <label bindtap="tap">
+        <image class='clear-icon' src='../../../public/images/icon/clear_input.png'></image>
+      </label>
+    </view>
+  </view>
+  <!-- 提交 -->
+  <button class="btn" bindtap="submitForm">完成</button>
+
+  <e-popup
+  isShow='{{ isEject }}'
+  hideOnBlur='false'>
+    <view slot='head' class="pop-head">公司描述</view>
+    <view slot='content' class="pop-content">
+      <textarea placeholder="输入内容（最大字数500）" maxlength="500" value="{{areaValue}}" bindblur="textAreaBlur"></textarea>
+    </view>
+    <view slot='foot' class="pop-foot" catchtap='popdown'>确定</view>
+  </e-popup>  
+</form>
+

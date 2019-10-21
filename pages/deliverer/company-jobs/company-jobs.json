@@ -1,0 +1,9 @@
+{
+  "usingComponents": {
+    "component-position": "../components/position/position"
+  },
+  "navigationBarBackgroundColor": "#ffffff",
+  "navigationBarTextStyle": "black",
+  "navigationBarTitleText": "公司职位",
+  "backgroundTextStyle": "light"
+}

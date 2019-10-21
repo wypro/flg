@@ -1,0 +1,13 @@
+<!--pages/center/collection/collection.wxml-->
+<view class='position-list'>
+      <component-position
+        wx:for="{{positionList}}" 
+        wx-item="{{item}}"
+        item="{{item}}"
+        isTd="{{false}}"
+        wx:key="{{item.jobsID}}"
+        data-condition="{{item.positionID}}"
+        data-jobsID="{{item.jobsID}}"
+        bindtap='positionDetail'/>
+</view>
+<view wx:if="{{positionList==null || positionList.length<=0}}" class="no-data">暂时没有数据~~</view>
